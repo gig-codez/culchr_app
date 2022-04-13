@@ -180,23 +180,23 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
               ),
             ),
           ),
-          CommonCard(
-            color: AppTheme.primaryColor,
-            radius: 36,
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
-                onTap: () {
-                  NavigationServices(context).gotoSearchScreen();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Icon(FontAwesomeIcons.search,
-                      size: 20, color: AppTheme.backgroundColor),
-                ),
-              ),
-            ),
-          ),
+          // CommonCard(
+          //   color: AppTheme.primaryColor,
+          //   radius: 36,
+          //   child: Material(
+          //     color: Colors.transparent,
+          //     child: InkWell(
+          //       onTap: () {
+          //         NavigationServices(context).gotoSearchScreen();
+          //       },
+          //       child: Padding(
+          //         padding: const EdgeInsets.all(16.0),
+          //         child: Icon(FontAwesomeIcons.search,
+          //             size: 20, color: AppTheme.backgroundColor),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

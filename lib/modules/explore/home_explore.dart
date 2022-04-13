@@ -75,12 +75,12 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
                 controller: controller,
                 itemCount: 4,
                 // padding on top is only for we need spec for sider
-                padding:
-                    EdgeInsets.only(top: sliderImageHieght + 32, bottom: 16),
+                // padding:
+                //     EdgeInsets.only(top: sliderImageHieght + 32, bottom: 16),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   // some list UI
-                  var count = 4;
+                  var count = 6;
                   var animation = Tween(begin: 0.0, end: 1.0).animate(
                     CurvedAnimation(
                       parent: widget.animationController,
@@ -115,17 +115,19 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
                       animationController: widget.animationController,
                       click: () {},
                     );
-                  } else {
+                  } else if (index == 3) {
                     return getDealListView(index);
+                  } else {
+                    return Container();
                   }
                 },
               ),
             ),
             // sliderUI with 3 images are moving
-            _sliderUI(),
+            // _sliderUI(),
 
             // viewHotels Button UI for click event
-            _viewHotelsButton(_animationController),
+            // _viewHotelsButton(_animationController),
 
             //just gradient for see the time and battry Icon on "TopBar"
             Positioned(
@@ -146,12 +148,12 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
               ),
             ),
             //   serachUI on Top  Positioned
-            Positioned(
-              top: MediaQuery.of(context).padding.top,
-              left: 0,
-              right: 0,
-              child: serachUI(),
-            )
+            // Positioned(
+            //   top: MediaQuery.of(context).padding.top,
+            //   left: 0,
+            //   right: 0,
+            //   child: serachUI(),
+            // )
           ],
         ),
       ),
@@ -259,7 +261,8 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
     });
     return Padding(
       padding: const EdgeInsets.only(top: 8),
-      child: Column(
+      child: Row(
+        // scrollDirection: Axis.horizontal,
         children: list,
       ),
     );

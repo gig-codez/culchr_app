@@ -43,7 +43,7 @@ class _MotelAppState extends State<MotelApp> {
             const Locale('ar'), //Arebic
           ],
           navigatorKey: navigatorKey,
-          title: 'Motel',
+          title: 'Culchr',
           debugShowCheckedModeBanner: false,
           theme: _theme,
           routes: _buildRoutes(),
