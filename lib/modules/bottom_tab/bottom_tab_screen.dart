@@ -4,7 +4,7 @@ import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/logic/providers/theme_provider.dart';
 import 'package:new_motel/modules/bottom_tab/components/tab_button_UI.dart';
-import 'package:new_motel/widgets/common_card.dart';
+import 'package:new_motel/modules/hotel_detailes/search_screen.dart';
 import 'package:provider/provider.dart';
 import '../explore/home_explore.dart';
 import '../myTrips/my_trips_screen.dart';
@@ -53,9 +53,7 @@ class _BottomTabScreenState extends State<BottomTabScreen>
     return Consumer<ThemeProvider>(
       builder: (_, provider, child) => Container(
         child: Scaffold(
-          bottomNavigationBar: Container(
-              height: 60 + MediaQuery.of(context).padding.bottom,
-              child: getBottomBarUI(bottomBarType)),
+          floatingActionButton: Container(child: getBottomBarUI(bottomBarType)),
           body: _isFirstTime
               ? Center(
                   child: CircularProgressIndicator(
@@ -78,6 +76,10 @@ class _BottomTabScreenState extends State<BottomTabScreen>
               animationController: _animationController,
             );
           });
+        } else if (tabType == BottomBarType.SearchSearch) {
+          setState(() {
+            _indexView = SearchScreen();
+          });
         } else if (tabType == BottomBarType.Trips) {
           setState(() {
             _indexView = MyTripsScreen(
@@ -96,23 +98,45 @@ class _BottomTabScreenState extends State<BottomTabScreen>
   }
 
   Widget getBottomBarUI(BottomBarType tabType) {
-    return CommonCard(
-      color: AppTheme.backgroundColor,
-      radius: 0,
+    return Container(
+      height: MediaQuery.of(context).size.height / 12,
+      width: MediaQuery.of(context).size.width / 1.1,
+      decoration: BoxDecoration(
+          color: AppTheme.backgroundColor,
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(18),
+              topRight: Radius.circular(18),
+              bottomLeft: Radius.circular(18),
+              bottomRight: Radius.circular(18)),
+          boxShadow: [
+            BoxShadow(
+                color: AppTheme.backgroundColor.withOpacity(0.1),
+                blurRadius: .5,
+                spreadRadius: .5,
+                offset: const Offset(0, 1))
+          ]),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
               TabButtonUI(
-                icon: Icons.search,
+                icon: Icons.explore_rounded,
                 isSelected: tabType == BottomBarType.Explore,
-                text: AppLocalizations(context).of("explore"),
+                text: AppLocalizations(context).of("discover"),
                 onTap: () {
                   tabClick(BottomBarType.Explore);
                 },
               ),
               TabButtonUI(
-                icon: FontAwesomeIcons.heart,
+                icon: Icons.search_rounded,
+                isSelected: tabType == BottomBarType.SearchSearch,
+                text: "Search",
+                onTap: () {
+                  tabClick(BottomBarType.SearchSearch);
+                },
+              ),
+              TabButtonUI(
+                icon: Icons.airplane_ticket_rounded,
                 isSelected: tabType == BottomBarType.Trips,
                 text: AppLocalizations(context).of("trips"),
                 onTap: () {
@@ -138,4 +162,4 @@ class _BottomTabScreenState extends State<BottomTabScreen>
   }
 }
 
-enum BottomBarType { Explore, Trips, Profile }
+enum BottomBarType { Explore, Trips, Profile, SearchSearch }
