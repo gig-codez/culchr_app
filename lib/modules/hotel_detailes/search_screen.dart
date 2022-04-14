@@ -46,12 +46,8 @@ class _SearchScreenState extends State<SearchScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CommonAppbarView(
-              iconData: Icons.close,
-              onBackClick: () {
-                Navigator.pop(context);
-              },
-              titleText: AppLocalizations(context).of("search_hotel"),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 10,
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -66,8 +62,7 @@ class _SearchScreenState extends State<SearchScreen>
                             child: CommonSearchBar(
                               iconData: FontAwesomeIcons.search,
                               enabled: true,
-                              text: AppLocalizations(context)
-                                  .of("where_are_you_going"),
+                              text: "Search",
                             ),
                           ),
                         ),
@@ -157,8 +152,7 @@ class _SearchScreenState extends State<SearchScreen>
             ),
           ));
           cout += 1;
-        } catch (e) {
-        }
+        } catch (e) {}
       }
       noList.add(
         Padding(
