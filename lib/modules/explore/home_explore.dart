@@ -63,7 +63,7 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
 
   @override
   Widget build(BuildContext context) {
-    sliderImageHieght = MediaQuery.of(context).size.width * 1.3;
+    sliderImageHieght = MediaQuery.of(context).size.width * 0.3;
     return BottomTopMoveAnimationView(
       animationController: widget.animationController,
       child: Consumer<ThemeProvider>(
@@ -73,14 +73,14 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
               color: AppTheme.scaffoldBackgroundColor,
               child: ListView.builder(
                 controller: controller,
-                itemCount: 4,
+                itemCount: 8,
                 // padding on top is only for we need spec for sider
-                // padding:
-                //     EdgeInsets.only(top: sliderImageHieght + 32, bottom: 16),
+                padding:
+                    EdgeInsets.only(top: sliderImageHieght + 32, bottom: 16),
                 scrollDirection: Axis.vertical,
                 itemBuilder: (context, index) {
                   // some list UI
-                  var count = 6;
+                  var count = 8;
                   var animation = Tween(begin: 0.0, end: 1.0).animate(
                     CurvedAnimation(
                       parent: widget.animationController,
@@ -90,22 +90,15 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
                   );
                   if (index == 0) {
                     return TitleView(
-                      titleTxt:
-                          AppLocalizations(context).of("popular_destination"),
-                      subTxt: '',
+                      titleTxt: AppLocalizations(context).of("best_deal"),
+                      subTxt: AppLocalizations(context).of("view_all"),
                       animation: animation,
+                      isLeftButton: true,
                       animationController: widget.animationController,
                       click: () {},
                     );
                   } else if (index == 1) {
-                    return Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      //Popular Destinations animation view
-                      child: PopularListView(
-                        animationController: widget.animationController,
-                        callBack: (index) {},
-                      ),
-                    );
+                    return getDealListView();
                   } else if (index == 2) {
                     return TitleView(
                       titleTxt: AppLocalizations(context).of("best_deal"),
@@ -116,9 +109,29 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
                       click: () {},
                     );
                   } else if (index == 3) {
-                    return getDealListView(index);
+                    return getDealListView();
+                  } else if (index == 4) {
+                    return TitleView(
+                      titleTxt: AppLocalizations(context).of("best_deal"),
+                      subTxt: AppLocalizations(context).of("view_all"),
+                      animation: animation,
+                      isLeftButton: true,
+                      animationController: widget.animationController,
+                      click: () {},
+                    );
+                  } else if (index == 5) {
+                    return getDealListView();
+                  } else if (index == 6) {
+                    return TitleView(
+                      titleTxt: AppLocalizations(context).of("best_deal"),
+                      subTxt: AppLocalizations(context).of("view_all"),
+                      animation: animation,
+                      isLeftButton: true,
+                      animationController: widget.animationController,
+                      click: () {},
+                    );
                   } else {
-                    return Container();
+                    return getDealListView();
                   }
                 },
               ),
@@ -148,12 +161,12 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
               ),
             ),
             //   serachUI on Top  Positioned
-            // Positioned(
-            //   top: MediaQuery.of(context).padding.top,
-            //   left: 0,
-            //   right: 0,
-            //   child: serachUI(),
-            // )
+            Positioned(
+              top: MediaQuery.of(context).padding.top,
+              left: 0,
+              right: 0,
+              child: serachUI(),
+            )
           ],
         ),
       ),
@@ -238,33 +251,28 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
     );
   }
 
-  Widget getDealListView(int index) {
+  Widget getDealListView() {
     var hotelList = HotelListData.hotelList;
-    List<Widget> list = [];
-    hotelList.forEach((f) {
-      var animation = Tween(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-          parent: widget.animationController,
-          curve: Interval(0, 1.0, curve: Curves.fastOutSlowIn),
-        ),
-      );
-      list.add(
-        HotelListViewPage(
-          callback: () {
-            NavigationServices(context).gotoHotelDetailes(f);
-          },
-          hotelData: f,
-          animation: animation,
-          animationController: widget.animationController,
-        ),
-      );
-    });
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Row(
-        // scrollDirection: Axis.horizontal,
-        children: list,
-      ),
+    // List<Widget> list = List.generate(hotelList.length, (index) {
+    //   var animation = Tween(begin: 0.0, end: 1.0).animate(
+    //     CurvedAnimation(
+    //       parent: widget.animationController,
+    //       curve: Interval(0, 1.0, curve: Curves.fastOutSlowIn),
+    //     ),
+    //   );
+    //   return HotelListViewPage(
+    //     callback: () {
+    //       NavigationServices(context).gotoHotelDetailes(hotelList[index]);
+    //     },
+    //     hotelData: hotelList[index],
+    //     animation: animation,
+    //     animationController: widget.animationController,
+    //   );
+    // });
+    return PopularListView(
+      animationController: widget.animationController,
+      callBack: (index) {},
+      listData: hotelList,
     );
   }
 

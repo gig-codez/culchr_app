@@ -39,6 +39,8 @@ class HotelListViewPage extends StatelessWidget {
           child: ClipRRect(
             //   borderRadius: BorderRadius.all(Radius.circular(0.0)),
             child: Container(
+              width: 200,
+              height: 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(hotelData.imagePath),
