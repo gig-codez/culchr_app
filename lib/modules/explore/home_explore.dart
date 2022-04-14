@@ -5,7 +5,6 @@ import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/logic/providers/theme_provider.dart';
 import 'package:new_motel/models/enum.dart';
-import 'package:new_motel/modules/myTrips/hotel_list_view_page.dart';
 import 'package:new_motel/routes/route_names.dart';
 import 'package:new_motel/widgets/bottom_top_move_animation_view.dart';
 import 'package:new_motel/widgets/common_button.dart';
