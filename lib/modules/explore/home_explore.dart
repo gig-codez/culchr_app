@@ -172,6 +172,7 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
     );
   }
 
+  // ignore: unused_element
   Widget _viewHotelsButton(AnimationController _animationController) {
     return AnimatedBuilder(
       animation: _animationController,
