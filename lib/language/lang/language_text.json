@@ -12,6 +12,15 @@
         "fr": "Vous avez déjà un compte? Connexion",
         "ar": "لديك حساب بالفعل؟ تسجيل الدخول",
         "ja": "すでにアカウントをお持ちですか？サインイン"
+    },{
+        "text_id":"popular",
+        "en":"Popular Events"
+    },{
+        "text_id":"all",
+        "en":"All"
+    },{
+        "text_id":"recommend",
+        "en":"Recommended"
     },
     {
         "text_id": "get_started",

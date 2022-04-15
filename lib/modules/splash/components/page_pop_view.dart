@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:new_motel/constants/text_styles.dart';
 import 'package:new_motel/language/appLocalizations.dart';
@@ -10,51 +9,65 @@ class PagePopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Expanded(
-          flex: 8,
-          child: Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width - 120,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Image.asset(
-                  imageData.assetsImage,
-                  fit: BoxFit.cover,
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(imageData.assetsImage),
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            colors: [
+              Colors.black.withOpacity(0.8),
+              Colors.black.withOpacity(0.1),
+            ],
+          ),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: SizedBox(),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                child: Text(AppLocalizations(context).of(imageData.titleText),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                child: Text(
+                  AppLocalizations(context).of(imageData.subText),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            child: Text(
-              AppLocalizations(context).of(imageData.titleText),
-              textAlign: TextAlign.center,
-              style: TextStyles(context).getTitleStyle().copyWith(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+            Expanded(
+              flex: 1,
+              child: SizedBox(),
             ),
-          ),
+          ],
         ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            child: Text(
-              AppLocalizations(context).of(imageData.subText),
-              textAlign: TextAlign.center,
-              style: TextStyles(context).getDescriptionStyle(),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: SizedBox(),
-        ),
-      ],
+      ),
     );
   }
 }

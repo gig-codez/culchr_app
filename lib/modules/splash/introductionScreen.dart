@@ -64,59 +64,62 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          SizedBox(
-            height: MediaQuery.of(context).padding.top,
+      body: SafeArea(
+        child: PageView(
+          controller: pageController,
+          pageSnapping: true,
+          onPageChanged: (index) {
+            currentShowIndex = index;
+          },
+          scrollDirection: Axis.horizontal,
+          children: <Widget>[
+            PagePopup(imageData: pageViewModelData[0]),
+            PagePopup(imageData: pageViewModelData[1]),
+            PagePopup(imageData: pageViewModelData[2]),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: SizedBox(
+        height: MediaQuery.of(context).size.height / 4,
+        child: Center(
+          child: Column(
+            children: [
+              SmoothPageIndicator(
+                controller: pageController, // PageController
+                count: 3,
+                effect: WormEffect(
+                    activeDotColor: Theme.of(context).primaryColor,
+                    dotColor: Theme.of(context).dividerColor,
+                    dotHeight: 10.0,
+                    dotWidth: 10.0,
+                    spacing: 5.0), // your preferred effect
+                onDotClicked: (index) {},
+              ),
+              CommonButton(
+                padding: const EdgeInsets.only(
+                    left: 48, right: 48, bottom: 8, top: 32),
+                buttonText: AppLocalizations(context).of("login"),
+                onTap: () {
+                  NavigationServices(context).gotoLoginScreen();
+                },
+              ),
+              CommonButton(
+                padding: const EdgeInsets.only(
+                    left: 48, right: 48, bottom: 32, top: 8),
+                buttonText: AppLocalizations(context).of("create_account"),
+                backgroundColor: AppTheme.backgroundColor,
+                textColor: AppTheme.primaryTextColor,
+                onTap: () {
+                  NavigationServices(context).gotoSignScreen();
+                },
+              ),
+              // SizedBox(
+              //   height: MediaQuery.of(context).padding.bottom,
+              // ),
+            ],
           ),
-          Expanded(
-            child: PageView(
-              controller: pageController,
-              pageSnapping: true,
-              onPageChanged: (index) {
-                currentShowIndex = index;
-              },
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                PagePopup(imageData: pageViewModelData[0]),
-                PagePopup(imageData: pageViewModelData[1]),
-                PagePopup(imageData: pageViewModelData[2]),
-              ],
-            ),
-          ),
-          SmoothPageIndicator(
-            controller: pageController, // PageController
-            count: 3,
-            effect: WormEffect(
-                activeDotColor: Theme.of(context).primaryColor,
-                dotColor: Theme.of(context).dividerColor,
-                dotHeight: 10.0,
-                dotWidth: 10.0,
-                spacing: 5.0), // your preferred effect
-            onDotClicked: (index) {},
-          ),
-          CommonButton(
-            padding:
-                const EdgeInsets.only(left: 48, right: 48, bottom: 8, top: 32),
-            buttonText: AppLocalizations(context).of("login"),
-            onTap: () {
-              NavigationServices(context).gotoLoginScreen();
-            },
-          ),
-          CommonButton(
-            padding:
-                const EdgeInsets.only(left: 48, right: 48, bottom: 32, top: 8),
-            buttonText: AppLocalizations(context).of("create_account"),
-            backgroundColor: AppTheme.backgroundColor,
-            textColor: AppTheme.primaryTextColor,
-            onTap: () {
-              NavigationServices(context).gotoSignScreen();
-            },
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).padding.bottom,
-          )
-        ],
+        ),
       ),
     );
   }

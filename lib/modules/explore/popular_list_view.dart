@@ -64,10 +64,12 @@ class _PopularListViewState extends State<PopularListView>
                 itemBuilder: (context, index) {
                   var count = popularList.length > 10 ? 5 : popularList.length;
                   var animation = Tween(begin: 0.0, end: 1.0).animate(
-                      CurvedAnimation(
-                          parent: animationController!,
-                          curve: Interval((1 / count) * index, 1.0,
-                              curve: Curves.fastOutSlowIn)));
+                    CurvedAnimation(
+                      parent: animationController!,
+                      curve: Interval((1 / count) * index, 1.0,
+                          curve: Curves.fastOutSlowIn),
+                    ),
+                  );
                   animationController?.forward();
                   //Population animation photo and text view
                   Size size = MediaQuery.of(context).size;
@@ -98,18 +100,17 @@ class _PopularListViewState extends State<PopularListView>
                                     colors: [
                                       Theme.of(context)
                                           .backgroundColor
-                                          .withOpacity(0.6),
+                                          .withOpacity(0.5),
                                       Theme.of(context)
                                           .backgroundColor
-                                          .withOpacity(0.3),
+                                          .withOpacity(0.0),
                                     ],
                                   ),
                                 ),
                                 child: Center(
                                   child: Text(
                                     widget.listData[index].titleTxt,
-                                    style:
-                                        TextStyles(context).getRegularStyle(),
+                                    style: TextStyles(context).getTitleStyle(),
                                   ),
                                 ),
                               ),

@@ -115,22 +115,25 @@ class _SplashScreenState extends State<SplashScreen> {
                     },
                   ),
                 ),
-                AnimatedOpacity(
-                  opacity: isLoadText ? 1.0 : 0.0,
-                  duration: Duration(milliseconds: 1200),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        bottom: 24.0 + MediaQuery.of(context).padding.bottom,
-                        top: 16),
-                    child: Text(
-                      AppLocalizations(context).of("already_have_account"),
-                      textAlign: TextAlign.left,
-                      style: TextStyles(context).getDescriptionStyle().copyWith(
-                            color: AppTheme.whiteColor,
-                          ),
-                    ),
-                  ),
-                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                )
+                // AnimatedOpacity(
+                //   opacity: isLoadText ? 1.0 : 0.0,
+                //   duration: Duration(milliseconds: 1200),
+                //   child: Padding(
+                //     padding: EdgeInsets.only(
+                //         bottom: 24.0 + MediaQuery.of(context).padding.bottom,
+                //         top: 16),
+                //     child: Text(
+                //       AppLocalizations(context).of("already_have_account"),
+                //       textAlign: TextAlign.left,
+                //       style: TextStyles(context).getDescriptionStyle().copyWith(
+                //             color: AppTheme.whiteColor,
+                //           ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],
