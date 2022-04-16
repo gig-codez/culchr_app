@@ -4,6 +4,7 @@ import 'package:new_motel/constants/text_styles.dart';
 import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/logic/providers/theme_provider.dart';
+import 'package:new_motel/modules/profile/wallet_UI.dart';
 import 'package:new_motel/routes/route_names.dart';
 import 'package:new_motel/widgets/bottom_top_move_animation_view.dart';
 import 'package:provider/provider.dart';
@@ -41,10 +42,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                 child: Container(child: appBar()),
               ),
+
+              //wallet space
+              Expanded(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height / 5,
+                  child: WalletUI(),
+                ),
+              ),
+
+              //
               Expanded(
                 child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.all(0.0),
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.all(0.0),
                   itemCount: userSettingsList.length,
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -105,8 +116,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16, right: 16),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 16, right: 16),
                             child: Divider(
                               height: 1,
                             ),
@@ -140,14 +151,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: <Widget>[
                   Text(
                     AppLocalizations(context).of("amanda_text"),
-                    style: new TextStyle(
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   Text(
                     AppLocalizations(context).of("view_edit"),
-                    style: new TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       color: Theme.of(context).disabledColor,
                     ),
@@ -163,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               width: 70,
               height: 70,
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(40.0)),
                 child: Image.asset(Localfiles.userImage),
               ),
             ),

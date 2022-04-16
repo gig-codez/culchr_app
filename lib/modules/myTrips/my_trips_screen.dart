@@ -6,8 +6,7 @@ import 'package:new_motel/logic/providers/theme_provider.dart';
 import 'package:new_motel/widgets/bottom_top_move_animation_view.dart';
 import 'package:new_motel/widgets/common_card.dart';
 import 'package:provider/provider.dart';
-import 'favorites_list_view.dart';
-import 'finish_trip_view.dart';
+import 'favorites_list_view.dart'; // this is the one for past tickets
 import 'upcoming_list_view.dart';
 
 class MyTripsScreen extends StatefulWidget {
@@ -85,13 +84,15 @@ class _MyTripsScreenState extends State<MyTripsScreen>
               animationController: tabAnimationController,
             );
           });
-        } else if (tabType == TopBarType.Finished) {
-          setState(() {
-            indexView = FinishTripView(
-              animationController: tabAnimationController,
-            );
-          });
-        } else if (tabType == TopBarType.Favorites) {
+        }
+        //  else if (tabType == TopBarType.Finished) {
+        //   setState(() {
+        //     indexView = FinishTripView(
+        //       animationController: tabAnimationController,
+        //     );
+        //   });
+        // }
+        else if (tabType == TopBarType.Past) {
           setState(() {
             indexView = FavoritesListView(
               animationController: tabAnimationController,
@@ -120,19 +121,12 @@ class _MyTripsScreenState extends State<MyTripsScreen>
                         : AppTheme.secondaryTextColor,
                     "upcoming"),
                 _getTopBarUi(() {
-                  tabClick(TopBarType.Finished);
+                  tabClick(TopBarType.Past);
                 },
-                    tabType == TopBarType.Finished
+                    tabType == TopBarType.Past
                         ? AppTheme.primaryColor
                         : AppTheme.secondaryTextColor,
-                    "finished"),
-                _getTopBarUi(() {
-                  tabClick(TopBarType.Favorites);
-                },
-                    tabType == TopBarType.Favorites
-                        ? AppTheme.primaryColor
-                        : AppTheme.secondaryTextColor,
-                    "favorites"),
+                    "past"),
               ],
             ),
             SizedBox(
@@ -176,7 +170,7 @@ class _MyTripsScreenState extends State<MyTripsScreen>
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(AppLocalizations(context).of("My_Trips"),
+          Text("My Tickets",
               style: TextStyles(context).getBoldStyle().copyWith(fontSize: 22)),
         ],
       ),
@@ -184,4 +178,4 @@ class _MyTripsScreenState extends State<MyTripsScreen>
   }
 }
 
-enum TopBarType { Upcomming, Finished, Favorites }
+enum TopBarType { Upcomming, Past }

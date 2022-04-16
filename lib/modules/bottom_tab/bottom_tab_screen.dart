@@ -80,7 +80,7 @@ class _BottomTabScreenState extends State<BottomTabScreen>
           setState(() {
             _indexView = SearchScreen();
           });
-        } else if (tabType == BottomBarType.Trips) {
+        } else if (tabType == BottomBarType.Tickets) {
           setState(() {
             _indexView = MyTripsScreen(
               animationController: _animationController,
@@ -138,10 +138,10 @@ class _BottomTabScreenState extends State<BottomTabScreen>
               ),
               TabButtonUI(
                 icon: Icons.airplane_ticket_rounded,
-                isSelected: tabType == BottomBarType.Trips,
-                text: AppLocalizations(context).of("trips"),
+                isSelected: tabType == BottomBarType.Tickets,
+                text: "Tickets",
                 onTap: () {
-                  tabClick(BottomBarType.Trips);
+                  tabClick(BottomBarType.Tickets);
                 },
               ),
               TabButtonUI(
@@ -163,4 +163,4 @@ class _BottomTabScreenState extends State<BottomTabScreen>
   }
 }
 
-enum BottomBarType { Explore, Trips, Profile, SearchSearch }
+enum BottomBarType { Explore, Tickets, Profile, SearchSearch }
