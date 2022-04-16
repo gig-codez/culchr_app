@@ -1,11 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.new_motel">
    <application
-<<<<<<< HEAD
-        android:label="Culchr App"
-=======
         android:label="Culchr"
->>>>>>> 34cdc2fb02a8f734276445e46d06a4c8ddeb2234
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

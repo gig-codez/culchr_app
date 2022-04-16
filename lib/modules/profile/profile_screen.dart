@@ -4,7 +4,7 @@ import 'package:new_motel/constants/text_styles.dart';
 import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/logic/providers/theme_provider.dart';
-import 'package:new_motel/modules/profile/wallet_UI.dart';
+import 'package:new_motel/modules/profile/wallet_ui.dart';
 import 'package:new_motel/routes/route_names.dart';
 import 'package:new_motel/widgets/bottom_top_move_animation_view.dart';
 import 'package:provider/provider.dart';
