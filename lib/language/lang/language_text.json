@@ -434,8 +434,8 @@
         "ja": "今後の"
     },
     {
-        "text_id": "finished",
-        "en": "Finished",
+        "text_id": "past",
+        "en": "Past",
         "fr": "finie",
         "ar": "تم الانتهاء من",
         "ja": "終了しました"

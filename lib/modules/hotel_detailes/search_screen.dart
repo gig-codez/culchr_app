@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/modules/hotel_detailes/search_view.dart';
-import 'package:new_motel/widgets/common_appbar_view.dart';
 import 'package:new_motel/widgets/common_card.dart';
 import 'package:new_motel/widgets/common_search_bar.dart';
 import 'package:new_motel/widgets/remove_focuse.dart';
