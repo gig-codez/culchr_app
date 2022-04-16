@@ -44,13 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
 
               //wallet space
-              Expanded(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height / 5,
-                  child: WalletUI(),
-                ),
-              ),
-
+              const WalletUI(),
               //
               Expanded(
                 child: ListView.builder(
@@ -106,12 +100,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(16),
-                                  child: Container(
-                                    child: Icon(
-                                        userSettingsList[index].iconData,
-                                        color: AppTheme.secondaryTextColor
-                                            .withOpacity(0.7)),
-                                  ),
+                                  child: Icon(userSettingsList[index].iconData,
+                                      color: AppTheme.secondaryTextColor
+                                          .withOpacity(0.7)),
                                 )
                               ],
                             ),
@@ -170,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding:
                 const EdgeInsets.only(right: 24, top: 16, bottom: 16, left: 24),
-            child: Container(
+            child: SizedBox(
               width: 70,
               height: 70,
               child: ClipRRect(

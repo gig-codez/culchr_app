@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:new_motel/widgets/fade_animation.dart';
 
+// ignore: must_be_immutable
 class IconsWidget extends StatelessWidget {
   late String title;
   late Widget child;
@@ -38,8 +39,12 @@ class IconsWidget extends StatelessWidget {
           height: size.height * 0.01,
         ),
         FadeAnimation(
-            delay: delayanimation,
-            child: Text(title, style: const TextStyle(color: Colors.black)))
+          delay: delayanimation,
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 16),
+          ),
+        ),
       ],
     );
   }

@@ -9,6 +9,8 @@ import 'package:new_motel/widgets/common_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class IntroductionScreen extends StatefulWidget {
+  const IntroductionScreen({Key? key}) : super(key: key);
+
   @override
   _IntroductionScreenState createState() => _IntroductionScreenState();
 }
@@ -23,33 +25,45 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   @override
   void initState() {
     pageViewModelData.add(PageViewData(
-      titleText: 'plan_your_trips',
-      subText: 'book_one_of_your',
+      titleText: 'Exclusive access to every event',
+      subText:
+          'Be the first to know of your favourite event and get exclusive access to it.',
+      assetsImage: Localfiles.introduction,
+    ));
+
+    pageViewModelData.add(PageViewData(
+      titleText: 'Discover experieces around you.',
+      subText:
+          'Discover and travel to all the exihilarating experiences around you. ',
       assetsImage: Localfiles.introduction1,
     ));
 
     pageViewModelData.add(PageViewData(
-      titleText: 'find_best_deals',
-      subText: 'find_deals_for_any',
+      titleText: 'The party doesn’t stop with Nightlife',
+      subText:
+          'Stay in the loop with insights of every nightlife activity near and around you',
       assetsImage: Localfiles.introduction2,
     ));
 
     pageViewModelData.add(PageViewData(
-      titleText: 'best_travelling_all_time',
-      subText: 'find_deals_for_any',
+      titleText: 'Seamless Entry With CulchrPass',
+      subText: 'Using our reusable wristband, get access to every event ',
       assetsImage: Localfiles.introduction3,
     ));
 
     sliderTimer = Timer.periodic(Duration(seconds: 4), (timer) {
       if (currentShowIndex == 0) {
         pageController.animateTo(MediaQuery.of(context).size.width,
-            duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-      } else if (currentShowIndex == 1) {
-        pageController.animateTo(MediaQuery.of(context).size.width * 2,
-            duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+            duration: const Duration(seconds: 3), curve: Curves.decelerate);
       } else if (currentShowIndex == 2) {
+        pageController.animateTo(MediaQuery.of(context).size.width * 2,
+            duration: const Duration(seconds: 3), curve: Curves.decelerate);
+      } else if (currentShowIndex == 2) {
+        pageController.animateTo(MediaQuery.of(context).size.width * 3,
+            duration: const Duration(seconds: 3), curve: Curves.decelerate);
+      } else if (currentShowIndex == 3) {
         pageController.animateTo(0,
-            duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+            duration: const Duration(seconds: 3), curve: Curves.decelerate);
       }
     });
     super.initState();
@@ -76,6 +90,7 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             PagePopup(imageData: pageViewModelData[0]),
             PagePopup(imageData: pageViewModelData[1]),
             PagePopup(imageData: pageViewModelData[2]),
+            PagePopup(imageData: pageViewModelData[3]),
           ],
         ),
       ),
@@ -87,10 +102,10 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
             children: [
               SmoothPageIndicator(
                 controller: pageController, // PageController
-                count: 3,
+                count: pageViewModelData.length, // total page count
                 effect: WormEffect(
                     activeDotColor: Theme.of(context).primaryColor,
-                    dotColor: Theme.of(context).dividerColor,
+                    dotColor: Colors.white38,
                     dotHeight: 10.0,
                     dotWidth: 10.0,
                     spacing: 5.0), // your preferred effect
@@ -114,9 +129,6 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                   NavigationServices(context).gotoSignScreen();
                 },
               ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).padding.bottom,
-              // ),
             ],
           ),
         ),

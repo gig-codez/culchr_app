@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await SystemChrome.setPreferredOrientations(
           [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((_) => runApp(_setAllProviders()));
@@ -21,6 +22,6 @@ Widget _setAllProviders() {
         ),
       ),
     ],
-    child: MotelApp(),
+    child: const MotelApp(),
   );
 }

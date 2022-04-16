@@ -39,7 +39,7 @@ class MapHotelListView extends StatelessWidget {
                     ),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,56 +62,52 @@ class MapHotelListView extends StatelessWidget {
                                     fontSize: 14,
                                   ),
                             ),
-                            Expanded(
+                            const Expanded(
                               child: SizedBox(),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
-                                Container(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Icon(
-                                            FontAwesomeIcons.mapMarkerAlt,
-                                            size: 12,
-                                            color:
-                                                Theme.of(context).primaryColor,
-                                          ),
-                                          Text(
-                                            " ${hotelData.dist.toStringAsFixed(1)}",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyles(context)
-                                                .getDescriptionStyle()
-                                                .copyWith(
-                                                  fontSize: 14,
-                                                ),
-                                          ),
-                                          Text(
-                                            AppLocalizations(context)
-                                                .of("km_to_city"),
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyles(context)
-                                                .getDescriptionStyle()
-                                                .copyWith(
-                                                  fontSize: 14,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 4),
-                                        child: Helper.ratingStar(),
-                                      ),
-                                    ],
-                                  ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(
+                                          FontAwesomeIcons.mapMarkerAlt,
+                                          size: 12,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        Text(
+                                          " ${hotelData.dist.toStringAsFixed(1)}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyles(context)
+                                              .getDescriptionStyle()
+                                              .copyWith(
+                                                fontSize: 14,
+                                              ),
+                                        ),
+                                        Text(
+                                          AppLocalizations(context)
+                                              .of("km_to_city"),
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyles(context)
+                                              .getDescriptionStyle()
+                                              .copyWith(
+                                                fontSize: 14,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4),
+                                      child: Helper.ratingStar(),
+                                    ),
+                                  ],
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(right: 8),

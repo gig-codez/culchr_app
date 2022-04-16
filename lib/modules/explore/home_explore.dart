@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -8,6 +10,7 @@ import 'package:new_motel/logic/providers/theme_provider.dart';
 import 'package:new_motel/modules/explore/views/Recommended.dart';
 import 'package:new_motel/widgets/bottom_top_move_animation_view.dart';
 import 'package:new_motel/widgets/common_card.dart';
+import 'package:new_motel/widgets/tap_effect.dart';
 import '../../models/hotel_list_data.dart';
 import 'package:provider/provider.dart';
 
@@ -38,26 +41,25 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
         AnimationController(duration: Duration(milliseconds: 400), vsync: this);
     widget.animationController.forward();
     controller = ScrollController(initialScrollOffset: 0.0);
-    controller
-      ..addListener(() {
-        if (mounted) {
-          if (controller.offset < 0) {
-            // we static set the just below half scrolling values
-            _animationController.animateTo(0.0);
-          } else if (controller.offset > 0.0 &&
-              controller.offset < sliderImageHieght) {
-            // we need around half scrolling values
-            if (controller.offset < ((sliderImageHieght / 1.5))) {
-              _animationController
-                  .animateTo((controller.offset / sliderImageHieght));
-            } else {
-              // we static set the just above half scrolling values "around == 0.64"
-              _animationController
-                  .animateTo((sliderImageHieght / 1.5) / sliderImageHieght);
-            }
+    controller.addListener(() {
+      if (mounted) {
+        if (controller.offset < 0) {
+          // we static set the just below half scrolling values
+          _animationController.animateTo(0.0);
+        } else if (controller.offset > 0.0 &&
+            controller.offset < sliderImageHieght) {
+          // we need around half scrolling values
+          if (controller.offset < ((sliderImageHieght / 1.5))) {
+            _animationController
+                .animateTo((controller.offset / sliderImageHieght));
+          } else {
+            // we static set the just above half scrolling values "around == 0.64"
+            _animationController
+                .animateTo((sliderImageHieght / 1.5) / sliderImageHieght);
           }
         }
-      });
+      }
+    });
     super.initState();
   }
 
@@ -81,7 +83,7 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
               left: 0,
               right: 0,
               child: Container(
-                height: 100,
+                height: 70,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -101,21 +103,22 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
                     (_animationController.value > 0.64
                         ? 1.0
                         : _animationController.value);
-                sliderImageHieght = MediaQuery.of(context).size.width * 0.02;
+                sliderImageHieght = MediaQuery.of(context).size.width * 0.065;
                 return Positioned(
                   top: sliderImageHieght * (1.0 - _animationController.value),
                   // top: (1.0 - _animationController.value),
                   left: 0,
                   right: 0,
                   child: Material(
-                    color: Theme.of(context).backgroundColor,
+                    color:
+                        Theme.of(context).backgroundColor.withOpacity(opecity),
                     child: Opacity(
                       opacity: opecity,
                       child: Column(
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).padding.top - 20),
+                                top: MediaQuery.of(context).padding.top),
                             child: Container(child: _getappBar()),
                           ),
                           tabViewUI(topBarType),
@@ -196,12 +199,12 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
                           ? AppTheme.primaryColor
                           : AppTheme.secondaryTextColor,
                       "recommend"),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                  )
                 ],
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).padding.bottom,
-            )
           ],
         ),
       ),
@@ -213,7 +216,7 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(32.0)),
           highlightColor: Colors.transparent,
           splashColor: Theme.of(context).primaryColor.withOpacity(0.2),
           onTap: onTap,
@@ -240,22 +243,23 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          AnimatedTextKit(
-            animatedTexts: [
-              TypewriterAnimatedText(
-                AppLocalizations(context).of("culchr"),
-                textStyle:
-                    TextStyles(context).getBoldStyle().copyWith(fontSize: 22),
-              ),
-              TypewriterAnimatedText(
-                AppLocalizations(context).of("dis"),
-                textStyle:
-                    TextStyles(context).getBoldStyle().copyWith(fontSize: 22),
-              ),
-            ],
-            onTap: () {
-              print("Tap Event");
-            },
+          Center(
+            child: AnimatedTextKit(
+              repeatForever: true,
+              totalRepeatCount: 1000,
+              animatedTexts: [
+                TypewriterAnimatedText(
+                  AppLocalizations(context).of("culchr"),
+                  textStyle:
+                      TextStyles(context).getBoldStyle().copyWith(fontSize: 22),
+                ),
+                TypewriterAnimatedText(
+                  AppLocalizations(context).of("dis"),
+                  textStyle:
+                      TextStyles(context).getBoldStyle().copyWith(fontSize: 22),
+                ),
+              ],
+            ),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,24 +267,39 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Badge(
-                    position: BadgePosition(
-                      top: -1,
-                      end: -1,
-                    ),
-                    child: CircleAvatar(child: Icon(Icons.notifications))),
+                child: TapEffect(
+                  onClick: () {},
+                  child: Badge(
+                      position: const BadgePosition(
+                        top: -1,
+                        end: -1,
+                      ),
+                      child:
+                          const CircleAvatar(child: Icon(Icons.notifications))),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Badge(
-                  padding: EdgeInsets.zero,
-                  badgeContent: Text("Live"),
-                  shape: BadgeShape.square,
-                  position: BadgePosition(
-                    bottom: -1,
-                  ),
-                  child: CircleAvatar(
-                    child: Icon(Icons.person),
+                child: TapEffect(
+                  onClick: () {},
+                  child: Badge(
+                    padding: EdgeInsets.zero,
+                    badgeContent: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Text(
+                        "Live",
+                        style: TextStyles(context)
+                            .getRegularStyle()
+                            .copyWith(fontSize: 12, color: Colors.white),
+                      ),
+                    ),
+                    shape: BadgeShape.square,
+                    position: const BadgePosition(
+                      bottom: -1,
+                    ),
+                    child: const CircleAvatar(
+                      child: Icon(Icons.person),
+                    ),
                   ),
                 ),
               )

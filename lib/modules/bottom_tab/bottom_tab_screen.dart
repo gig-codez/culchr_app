@@ -99,8 +99,8 @@ class _BottomTabScreenState extends State<BottomTabScreen>
 
   Widget getBottomBarUI(BottomBarType tabType) {
     return Container(
-      padding: EdgeInsets.all(3),
-      height: MediaQuery.of(context).size.height / 13,
+      padding: const EdgeInsets.all(3),
+      height: MediaQuery.of(context).size.height / 12,
       width: MediaQuery.of(context).size.width / 1.1,
       decoration: BoxDecoration(
           color: AppTheme.backgroundColor,
@@ -154,9 +154,9 @@ class _BottomTabScreenState extends State<BottomTabScreen>
               ),
             ],
           ),
-          SizedBox(
-            height: MediaQuery.of(context).padding.bottom,
-          )
+          // SizedBox(
+          //   height: MediaQuery.of(context).padding.bottom,
+          // )
         ],
       ),
     );

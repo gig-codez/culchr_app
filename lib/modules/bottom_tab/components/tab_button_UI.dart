@@ -29,7 +29,7 @@ class TabButtonUI extends StatelessWidget {
           onTap: onTap,
           child: Column(
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Container(

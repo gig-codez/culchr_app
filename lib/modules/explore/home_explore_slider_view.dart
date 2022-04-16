@@ -46,16 +46,21 @@ class _HomeExploreSliderViewState extends State<HomeExploreSliderView> {
       assetsImage: Localfiles.explore_3,
     ));
 
-    sliderTimer = Timer.periodic(Duration(seconds: 4), (timer) {
+    sliderTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
+      // ignore: curly_braces_in_flow_control_structures
       if (mounted) if (currentShowIndex == 0) {
         pageController.animateTo(MediaQuery.of(context).size.width,
-            duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-      } else if (currentShowIndex == 1) {
-        pageController.animateTo(MediaQuery.of(context).size.width * 2,
-            duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
-      } else if (currentShowIndex == 2) {
-        pageController.animateTo(0,
-            duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+            duration: const Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+      } else {
+        if (currentShowIndex == 1) {
+          pageController.animateTo(MediaQuery.of(context).size.width * 2,
+              duration: const Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn);
+        } else if (currentShowIndex == 2) {
+          pageController.animateTo(0,
+              duration: const Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn);
+        }
       }
     });
     super.initState();
@@ -136,7 +141,7 @@ class PagePopup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
+        SizedBox(
           height: (MediaQuery.of(context).size.width * 1.3),
           width: MediaQuery.of(context).size.width,
           child: Image.asset(
@@ -163,7 +168,7 @@ class PagePopup extends StatelessWidget {
                         .copyWith(color: AppTheme.whiteColor),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Container(
@@ -176,7 +181,7 @@ class PagePopup extends StatelessWidget {
                         color: AppTheme.whiteColor),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
               ],

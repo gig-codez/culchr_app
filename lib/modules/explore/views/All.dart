@@ -29,7 +29,7 @@ class All extends StatelessWidget {
       );
     }
 
-    var sliderImageHieght = MediaQuery.of(context).size.width * 0.45;
+    var sliderImageHieght = MediaQuery.of(context).size.width * 0.5;
     return Container(
       color: AppTheme.scaffoldBackgroundColor,
       child: ListView.builder(
@@ -49,35 +49,44 @@ class All extends StatelessWidget {
             ),
           );
           if (index == 0) {
-            return TitleView(
-              titleTxt: AppLocalizations(context).of("trend"),
-              subTxt: AppLocalizations(context).of("view_all"),
-              animation: animation,
-              isLeftButton: true,
-              animationController: animationController,
-              click: () {},
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TitleView(
+                titleTxt: AppLocalizations(context).of("trend"),
+                subTxt: AppLocalizations(context).of("view_all"),
+                animation: animation,
+                isLeftButton: true,
+                animationController: animationController,
+                click: () {},
+              ),
             );
           } else if (index == 1) {
             return getDealListView();
           } else if (index == 2) {
-            return TitleView(
-              titleTxt: AppLocalizations(context).of("best_deal"),
-              subTxt: AppLocalizations(context).of("view_all"),
-              animation: animation,
-              isLeftButton: true,
-              animationController: animationController,
-              click: () {},
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TitleView(
+                titleTxt: AppLocalizations(context).of("best_deal"),
+                subTxt: AppLocalizations(context).of("view_all"),
+                animation: animation,
+                isLeftButton: true,
+                animationController: animationController,
+                click: () {},
+              ),
             );
           } else if (index == 3) {
             return getDealListView();
           } else if (index == 4) {
-            return TitleView(
-              titleTxt: AppLocalizations(context).of("popular"),
-              subTxt: AppLocalizations(context).of("view_all"),
-              animation: animation,
-              isLeftButton: true,
-              animationController: animationController,
-              click: () {},
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TitleView(
+                titleTxt: AppLocalizations(context).of("popular"),
+                subTxt: AppLocalizations(context).of("view_all"),
+                animation: animation,
+                isLeftButton: true,
+                animationController: animationController,
+                click: () {},
+              ),
             );
           } else {
             return getDealListView();

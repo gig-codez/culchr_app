@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:new_motel/constants/text_styles.dart';
-import 'package:new_motel/language/appLocalizations.dart';
 
 class PagePopup extends StatelessWidget {
   final PageViewData imageData;
@@ -10,6 +8,7 @@ class PagePopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.zero,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
@@ -24,44 +23,43 @@ class PagePopup extends StatelessWidget {
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.black.withOpacity(0.8),
-              Colors.black.withOpacity(0.1),
+              Colors.black.withOpacity(1.0),
+              Colors.black.withOpacity(0.5),
+              Colors.black.withOpacity(0.0),
             ],
           ),
         ),
         child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: SizedBox(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 2.4,
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                child: Text(AppLocalizations(context).of(imageData.titleText),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                child: Text(
-                  AppLocalizations(context).of(imageData.subText),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                imageData.titleText,
+                textScaleFactor: 2.1,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            Expanded(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                imageData.subText,
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            const Expanded(
               flex: 1,
               child: SizedBox(),
             ),

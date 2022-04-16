@@ -10,7 +10,7 @@ class Popular extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomTopMoveAnimationView(
       animationController: listener,
-      child: Center(child: Text("Popular")),
+      child: const Center(child: Text("Popular")),
     );
   }
 }

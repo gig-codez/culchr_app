@@ -40,6 +40,7 @@ dependencies:
     animated_text_kit: ^4.2.1
     supercharged: ^2.1.1
     simple_animations:
+    flutter_native_splash: ^2.1.5
 
 dev_dependencies:
     flutter_test:

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:new_motel/widgets/tap_effect.dart';
 import 'package:new_motel/constants/text_styles.dart';
@@ -26,7 +25,7 @@ class CommonButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ?? EdgeInsets.only(),
+      padding: padding ?? const EdgeInsets.only(),
       child: TapEffect(
         isClickable: isClickable!,
         onClick: onTap ?? () {},

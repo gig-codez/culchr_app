@@ -1,17 +1,20 @@
 [
     {
         "text_id": "best_hotel_deals",
-        "en": "Best hotel deals for your holiday",
-        "fr": "Meilleures offres d'hôtels pour vos vacances",
-        "ar": "أفضل عروض الفنادق لقضاء عطلتك",
+        "en": "Your number one events manager",
+        "fr": "Votre gestionnaire d'événements numéro un",
+        "ar": "مدير الأحداث رقم واحد الخاص بك",
         "ja": "あなたの休日のための最高のホテルのお得な情報"
     },{
         "text_id": "trend",
-        "en":"Trending"
+        "en":"Trending Events"
+    },{
+        "text_id": "up",
+        "en":"Upcoming Events"
     },
     {
         "text_id": "already_have_account",
-        "en": "Already have account? Log in",
+        "en": "Already have account? ",
         "fr": "Vous avez déjà un compte? Connexion",
         "ar": "لديك حساب بالفعل؟ تسجيل الدخول",
         "ja": "すでにアカウントをお持ちですか？サインイン"

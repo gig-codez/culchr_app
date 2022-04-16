@@ -9,15 +9,17 @@ import 'package:new_motel/widgets/common_text_field_view.dart';
 import 'package:new_motel/widgets/remove_focuse.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   String _errorEmail = '';
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   String _errorPassword = '';
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 32),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 32),
                       child: FacebookTwitterButtonView(),
                     ),
                     Padding(

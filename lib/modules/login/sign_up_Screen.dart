@@ -17,13 +17,13 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   String _errorEmail = '';
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   String _errorPassword = '';
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   String _errorFName = '';
-  TextEditingController _fnameController = TextEditingController();
+  final TextEditingController _fnameController = TextEditingController();
   String _errorLName = '';
-  TextEditingController _lnameController = TextEditingController();
+  final TextEditingController _lnameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

@@ -129,9 +129,9 @@ class _MyTripsScreenState extends State<MyTripsScreen>
                     "past"),
               ],
             ),
-            SizedBox(
-              height: MediaQuery.of(context).padding.bottom,
-            )
+            // SizedBox(
+            //   height: MediaQuery.of(context).padding.bottom,
+            // )
           ],
         ),
       ),
@@ -143,7 +143,7 @@ class _MyTripsScreenState extends State<MyTripsScreen>
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          borderRadius: BorderRadius.all(Radius.circular(32.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(32.0)),
           highlightColor: Colors.transparent,
           splashColor: Theme.of(context).primaryColor.withOpacity(0.2),
           onTap: onTap,

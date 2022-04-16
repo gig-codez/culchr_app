@@ -33,16 +33,17 @@ class HotelListViewPage extends StatelessWidget {
       animation: animation,
       animationController: animationController,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: CommonCard(
           color: AppTheme.backgroundColor,
           child: ClipRRect(
             //   borderRadius: BorderRadius.all(Radius.circular(0.0)),
             child: Container(
-              width: 200,
+              width: 150,
               height: 200,
               decoration: BoxDecoration(
                 image: DecorationImage(
+                  fit: BoxFit.cover,
                   image: AssetImage(hotelData.imagePath),
                 ),
               ),
@@ -52,13 +53,19 @@ class HotelListViewPage extends StatelessWidget {
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
                     colors: [
-                      Theme.of(context).backgroundColor.withOpacity(1),
-                      Theme.of(context).backgroundColor.withOpacity(0.5),
+                      Colors.black.withOpacity(1),
+                      Colors.black.withOpacity(0.0),
                     ],
                   ),
                 ),
-                child: Text(
-                  hotelData.titleTxt,
+                child: Center(
+                  child: Text(
+                    hotelData.titleTxt,
+                    textScaleFactor: 2,
+                    style: TextStyles(context).getRegularStyle().copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
                 ),
               ),
             ),

@@ -716,6 +716,8 @@ class TicketsView extends StatelessWidget {
               press();
             },
             child: Material(
+              borderOnForeground: true,
+              borderRadius: BorderRadius.circular(8),
               color: color,
               child: GridTile(
                 header: Center(

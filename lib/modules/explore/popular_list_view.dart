@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:new_motel/modules/explore/category_view.dart';
 import 'package:new_motel/widgets/bottom_top_move_animation_view.dart';
-import '../../constants/text_styles.dart';
+import '../../constants/themes.dart';
 import '../../models/hotel_list_data.dart';
 
 class PopularListView extends StatefulWidget {
   final Function(int) callBack;
   final AnimationController animationController;
   final List<HotelListData> listData;
-  PopularListView(
+  const PopularListView(
       {Key? key,
       required this.callBack,
       required this.animationController,
@@ -26,7 +25,7 @@ class _PopularListViewState extends State<PopularListView>
   @override
   void initState() {
     animationController = AnimationController(
-        duration: Duration(milliseconds: 1000), vsync: this);
+        duration: const Duration(milliseconds: 1000), vsync: this);
     super.initState();
   }
 
@@ -47,16 +46,20 @@ class _PopularListViewState extends State<PopularListView>
   Widget build(BuildContext context) {
     return BottomTopMoveAnimationView(
       animationController: animationController!,
-      child: Container(
+      child: SizedBox(
         height: 180,
         width: double.infinity,
         child: FutureBuilder(
           future: getData(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return SizedBox();
+              return CircularProgressIndicator.adaptive(
+                valueColor: AlwaysStoppedAnimation<Color>(
+                  AppTheme.primaryColor,
+                ),
+              );
             } else {
-              return ListView.builder(
+              return ListView.separated(
                 padding: const EdgeInsets.only(
                     top: 0, bottom: 0, right: 24, left: 8),
                 itemCount: widget.listData.length,
@@ -79,38 +82,58 @@ class _PopularListViewState extends State<PopularListView>
                         return FadeTransition(
                           opacity: animation,
                           child: InkWell(
-                            child: Container(
-                              margin: EdgeInsets.all(10),
-                              width: size.width / 2,
-                              height: size.height / 2,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                      widget.listData[index].imagePath),
-                                ),
-                              ),
+                            child: PhysicalModel(
+                              color: Colors.transparent,
+                              elevation: 3,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
                               child: Container(
+                                padding: const EdgeInsets.all(0),
+                                width: size.width / 2,
+                                height: size.height / 2,
                                 decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                    colors: [
-                                      Theme.of(context)
-                                          .backgroundColor
-                                          .withOpacity(0.5),
-                                      Theme.of(context)
-                                          .backgroundColor
-                                          .withOpacity(0.0),
-                                    ],
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(
+                                        widget.listData[index].imagePath),
                                   ),
                                 ),
-                                child: Center(
-                                  child: Text(
-                                    widget.listData[index].titleTxt,
-                                    style: TextStyles(context).getTitleStyle(),
+                                child: Container(
+                                  width: size.width,
+                                  height: size.height,
+                                  padding: const EdgeInsets.all(0),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                      colors: [
+                                        Colors.black.withOpacity(0.7),
+                                        Colors.black.withOpacity(0.0),
+                                      ],
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: size.height * 0.1,
+                                        ),
+                                        Text(
+                                          widget.listData[index].titleTxt,
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18),
+                                        ),
+                                        Text(widget.listData[index].subTxt,
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14)),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -121,6 +144,12 @@ class _PopularListViewState extends State<PopularListView>
                           ),
                         );
                       });
+                },
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(
+                    width: 20,
+                    height: 20,
+                  );
                 },
               );
             }

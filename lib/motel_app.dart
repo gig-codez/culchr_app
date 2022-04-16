@@ -17,6 +17,8 @@ import 'package:provider/provider.dart';
 BuildContext? applicationcontext;
 
 class MotelApp extends StatefulWidget {
+  const MotelApp({Key? key}) : super(key: key);
+
   @override
   _MotelAppState createState() => _MotelAppState();
 }
@@ -30,17 +32,17 @@ class _MotelAppState extends State<MotelApp> {
 
         final ThemeData _theme = provider.themeData;
         return MaterialApp(
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [
-            const Locale('en'), // English
-            const Locale('fr'), //French
-            const Locale('ja'), // Japanises
-            const Locale('ar'), //Arebic
+          supportedLocales: const [
+            Locale('en'), // English
+            Locale('fr'), //French
+            Locale('ja'), // Japanises
+            Locale('ar'), //Arebic
           ],
           navigatorKey: navigatorKey,
           title: 'Culchr',
@@ -108,9 +110,9 @@ class _MotelAppState extends State<MotelApp> {
     return {
       RoutesName.Splash: (BuildContext context) => SplashScreen(),
       RoutesName.IntroductionScreen: (BuildContext context) =>
-          IntroductionScreen(),
+          const IntroductionScreen(),
       RoutesName.Home: (BuildContext context) => BottomTabScreen(),
-      RoutesName.Login: (BuildContext context) => LoginScreen(),
+      RoutesName.Login: (BuildContext context) => const LoginScreen(),
     };
   }
 }

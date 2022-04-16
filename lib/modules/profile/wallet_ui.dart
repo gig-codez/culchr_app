@@ -1,9 +1,10 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:new_motel/widgets/icons_widgets.dart';
+import 'package:new_motel/widgets/tap_effect.dart';
 
 class WalletUI extends StatefulWidget {
-  WalletUI({Key? key}) : super(key: key);
+  const WalletUI({Key? key}) : super(key: key);
 
   @override
   State<WalletUI> createState() => _WalletUIState();
@@ -14,68 +15,98 @@ class _WalletUIState extends State<WalletUI> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height,
+      margin: const EdgeInsets.all(10),
+      height: size.height / 6,
       width: size.width,
-      decoration: const BoxDecoration(
-        color: Colors.grey,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(55),
-            topRight: Radius.circular(55),
-            bottomLeft: Radius.circular(55),
-            bottomRight: Radius.circular(55)),
-      ),
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 120,
-          ),
-          //action buttons
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconsWidget(
-                    title: "TopUP",
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add_box_rounded)),
-                    delayanimation: 1.5,
-                    color: const Color(0xFF17334E)),
-                SizedBox(
-                  width: size.width * 0.03,
-                ),
-                IconsWidget(
-                    title: "Withdraw",
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.file_download_outlined)),
-                    delayanimation: 1.7,
-                    color: const Color(0xFF163333)),
-                SizedBox(
-                  width: size.width * 0.03,
-                ),
-                IconsWidget(
-                    title: "Pay",
-                    child: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.payments)),
-                    delayanimation: 1.9,
-                    color: const Color(0xFF411C2E)),
-                SizedBox(
-                  width: size.width * 0.03,
-                ),
-                IconsWidget(
-                    title: "Transactions",
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.receipt_rounded)),
-                    delayanimation: 2.1,
-                    color: const Color(0xFF32204D))
-              ],
+      decoration: BoxDecoration(
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 3.0, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset: Offset(
+              0.0, // Move to right 10  horizontally
+              0.0, // Move to bottom 10 Vertically
             ),
           )
         ],
+        color: Theme.of(context).backgroundColor,
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20)),
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: size.height * 0.03,
+            ),
+            //action buttons
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TapEffect(
+                    onClick: () {},
+                    child: IconsWidget(
+                      title: "TopUP",
+                      child: const Icon(Icons.add_box_rounded,
+                          color: Colors.white, size: 30),
+                      delayanimation: 1.5,
+                      color: const Color(0xFF17334E),
+                    ),
+                  ),
+                  SizedBox(
+                    width: size.width * 0.04,
+                  ),
+                  TapEffect(
+                    onClick: () {},
+                    child: IconsWidget(
+                        title: "Withdraw",
+                        child: const Icon(
+                          Icons.file_download_outlined,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        delayanimation: 1.7,
+                        color: const Color(0xFF163333)),
+                  ),
+                  SizedBox(
+                    width: size.width * 0.04,
+                  ),
+                  TapEffect(
+                    onClick: () {},
+                    child: IconsWidget(
+                        title: "Pay",
+                        child: const Icon(Icons.payments,
+                            color: Colors.white, size: 30),
+                        delayanimation: 1.9,
+                        color: const Color(0xFF411C2E)),
+                  ),
+                  SizedBox(
+                    width: size.width * 0.04,
+                  ),
+                  TapEffect(
+                    onClick: () {},
+                    child: IconsWidget(
+                        title: "Transactions",
+                        child: const Icon(
+                          Icons.receipt_rounded,
+                          color: Colors.white,
+                          size: 30,
+                        ),
+                        delayanimation: 2.1,
+                        color: const Color(0xFF32204D)),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
