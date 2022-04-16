@@ -5,6 +5,9 @@
         "fr": "Meilleures offres d'hôtels pour vos vacances",
         "ar": "أفضل عروض الفنادق لقضاء عطلتك",
         "ja": "あなたの休日のための最高のホテルのお得な情報"
+    },{
+        "text_id": "trend",
+        "en":"Trending"
     },
     {
         "text_id": "already_have_account",
@@ -14,13 +17,18 @@
         "ja": "すでにアカウントをお持ちですか？サインイン"
     },{
         "text_id":"popular",
-        "en":"Popular Events"
+        "en":"Popular"
     },{
         "text_id":"all",
         "en":"All"
     },{
         "text_id":"recommend",
-        "en":"Recommended"
+        "en":"Recomended"
+    },{
+        "text_id":"culchr",
+        "en":"Culchr"
+    },{"text_id":"dis",
+        "en":"Discover\n Uganda"
     },
     {
         "text_id": "get_started",
@@ -77,6 +85,9 @@
         "fr": "Créer un compte",
         "ar": "إنشاء حساب",
         "ja": "アカウントを作成する"
+    },{
+      "text_id":"swipe",
+      "en":"Swipe up "
     },
     {
         "text_id": "log_with mail",
@@ -339,7 +350,7 @@
     },
     {
         "text_id": "book_now",
-        "en": "Book now",
+        "en": "Choose a ticket",
         "fr": "Destination\npopulaire",
         "ar": " احجز الآن",
         "ja": "今予約する"
@@ -409,7 +420,7 @@
     },
     {
         "text_id": "room_photo",
-        "en": "Photo",
+        "en": "Gallery",
         "fr": "photo",
         "ar": "صورة",
         "ja": "写真"

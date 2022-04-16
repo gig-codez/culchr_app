@@ -1,18 +1,14 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:new_motel/constants/text_styles.dart';
 import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/logic/providers/theme_provider.dart';
 import 'package:new_motel/modules/explore/views/Recommended.dart';
-import 'package:new_motel/routes/route_names.dart';
 import 'package:new_motel/widgets/bottom_top_move_animation_view.dart';
 import 'package:new_motel/widgets/common_card.dart';
-import 'package:new_motel/widgets/common_search_bar.dart';
 import '../../models/hotel_list_data.dart';
-import '../myTrips/upcoming_list_view.dart';
-import 'popular_list_view.dart';
-import 'title_view.dart';
 import 'package:provider/provider.dart';
 
 import 'views/All.dart';
@@ -85,41 +81,51 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
               left: 0,
               right: 0,
               child: Container(
-                height: 80,
+                height: 100,
                 decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                  colors: [
-                    Theme.of(context).backgroundColor.withOpacity(0.4),
-                    Theme.of(context).backgroundColor.withOpacity(0.0),
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                )),
+                  gradient: LinearGradient(
+                    colors: [
+                      Theme.of(context).backgroundColor.withOpacity(0.4),
+                      Theme.of(context).backgroundColor.withOpacity(0.0),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
               ),
             ),
             //   serachUI on Top  Positioned
-            Positioned(
-              top: MediaQuery.of(context).padding.top / 8,
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  FadeTransition(
-                    opacity: Tween(begin: 0.0, end: 1.0).animate(
-                      CurvedAnimation(
-                        parent: _animationController,
-                        curve: Curves.fastOutSlowIn,
+            AnimatedBuilder(
+              builder: (BuildContext context, Widget? child) {
+                var opecity = 1.0 -
+                    (_animationController.value > 0.64
+                        ? 1.0
+                        : _animationController.value);
+                sliderImageHieght = MediaQuery.of(context).size.width * 0.02;
+                return Positioned(
+                  top: sliderImageHieght * (1.0 - _animationController.value),
+                  // top: (1.0 - _animationController.value),
+                  left: 0,
+                  right: 0,
+                  child: Material(
+                    color: Theme.of(context).backgroundColor,
+                    child: Opacity(
+                      opacity: opecity,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).padding.top - 20),
+                            child: Container(child: _getappBar()),
+                          ),
+                          tabViewUI(topBarType),
+                        ],
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).padding.top),
-                      child: Container(child: _getappBar()),
-                    ),
                   ),
-                  tabViewUI(topBarType),
-                ],
-              ),
+                );
+              },
+              animation: _animationController,
             )
           ],
         ),
@@ -162,31 +168,36 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
         color: AppTheme.backgroundColor,
         radius: 36,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                _getTopBarUi(() {
-                  tabClick(TopBarType.All);
-                },
-                    tabType == TopBarType.All
-                        ? AppTheme.primaryColor
-                        : AppTheme.secondaryTextColor,
-                    "all"),
-                _getTopBarUi(() {
-                  tabClick(TopBarType.Popular);
-                },
-                    tabType == TopBarType.Popular
-                        ? AppTheme.primaryColor
-                        : AppTheme.secondaryTextColor,
-                    "popular"),
-                _getTopBarUi(() {
-                  tabClick(TopBarType.Recommeded);
-                },
-                    tabType == TopBarType.Recommeded
-                        ? AppTheme.primaryColor
-                        : AppTheme.secondaryTextColor,
-                    "recommend"),
-              ],
+            SingleChildScrollView(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _getTopBarUi(() {
+                    tabClick(TopBarType.All);
+                  },
+                      tabType == TopBarType.All
+                          ? AppTheme.primaryColor
+                          : AppTheme.secondaryTextColor,
+                      "all"),
+                  _getTopBarUi(() {
+                    tabClick(TopBarType.Popular);
+                  },
+                      tabType == TopBarType.Popular
+                          ? AppTheme.primaryColor
+                          : AppTheme.secondaryTextColor,
+                      "popular"),
+                  _getTopBarUi(() {
+                    tabClick(TopBarType.Recommeded);
+                  },
+                      tabType == TopBarType.Recommeded
+                          ? AppTheme.primaryColor
+                          : AppTheme.secondaryTextColor,
+                      "recommend"),
+                ],
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).padding.bottom,
@@ -224,13 +235,57 @@ class _HomeExploreScreenState extends State<HomeExploreScreen>
 
   Widget _getappBar() {
     return Padding(
-      padding: const EdgeInsets.only(left: 24, top: 24 + 4.0, right: 24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      padding: const EdgeInsets.only(left: 24, top: 0.0, right: 24),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(AppLocalizations(context).of("culchr"),
-              style: TextStyles(context).getBoldStyle().copyWith(fontSize: 22)),
+          AnimatedTextKit(
+            animatedTexts: [
+              TypewriterAnimatedText(
+                AppLocalizations(context).of("culchr"),
+                textStyle:
+                    TextStyles(context).getBoldStyle().copyWith(fontSize: 22),
+              ),
+              TypewriterAnimatedText(
+                AppLocalizations(context).of("dis"),
+                textStyle:
+                    TextStyles(context).getBoldStyle().copyWith(fontSize: 22),
+              ),
+            ],
+            onTap: () {
+              print("Tap Event");
+            },
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Badge(
+                    position: BadgePosition(
+                      top: -1,
+                      end: -1,
+                    ),
+                    child: CircleAvatar(child: Icon(Icons.notifications))),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Badge(
+                  padding: EdgeInsets.zero,
+                  badgeContent: Text("Live"),
+                  shape: BadgeShape.square,
+                  position: BadgePosition(
+                    bottom: -1,
+                  ),
+                  child: CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

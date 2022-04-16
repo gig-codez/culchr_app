@@ -38,7 +38,7 @@ class Localfiles {
   static const String hotel_Type_8 = BaseImageUrl + 'hotel_Type_8.jpg';
   static const String hotel_Type_9 = BaseImageUrl + 'hotel_Type_9.jpg';
   static const String introduction = BaseImageUrl + 'events.jpg';
-  static const String introduction1 = BaseImageUrl + 'events.jpg';
+  static const String introduction1 = BaseImageUrl + 'culchrpass.jpg';
   static const String introduction2 = BaseImageUrl + 'culchrwallet.jpg';
   static const String introduction3 = BaseImageUrl + 'experience.jpg';
   static const String inviteImage = BaseImageUrl + 'inviteImage.png';

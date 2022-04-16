@@ -41,8 +41,8 @@ class HotelListData {
   // we need location in this hotelList bcz we using that in map
   static List<HotelListData> hotelList = [
     HotelListData(
-      imagePath: Localfiles.hotel_1,
-      titleTxt: 'Grand Royal Hotel',
+      imagePath: Localfiles.introduction1,
+      titleTxt: 'Grand Royal Event',
       subTxt: 'Wembley, London',
       dist: 2.0,
       reviews: 80,
@@ -54,9 +54,9 @@ class HotelListData {
       location: LatLng(51.516898, -0.143377),
     ),
     HotelListData(
-      imagePath: Localfiles.hotel_2,
-      titleTxt: 'Queen Hotel',
-      subTxt: 'Wembley, London',
+      imagePath: Localfiles.introduction,
+      titleTxt: 'Nyege Nyege',
+      subTxt: 'kampala, Uganda',
       dist: 4.0,
       reviews: 74,
       rating: 4.5,
@@ -67,9 +67,9 @@ class HotelListData {
       location: LatLng(51.505799, -0.137904),
     ),
     HotelListData(
-      imagePath: Localfiles.hotel_3,
-      titleTxt: 'Grand Royal Hotel',
-      subTxt: 'Wembley, London',
+      imagePath: Localfiles.introduction2,
+      titleTxt: 'Nkuuka ',
+      subTxt: 'Kampala, Uganda',
       dist: 3.0,
       reviews: 62,
       rating: 4.0,
@@ -80,7 +80,7 @@ class HotelListData {
       location: LatLng(51.499162, -0.119788),
     ),
     HotelListData(
-      imagePath: Localfiles.hotel_4,
+      imagePath: Localfiles.introduction3,
       titleTxt: 'Queen Hotel',
       subTxt: 'Wembley, London',
       dist: 7.0,
@@ -93,7 +93,7 @@ class HotelListData {
       location: LatLng(51.519541, -0.114503),
     ),
     HotelListData(
-      imagePath: Localfiles.hotel_5,
+      imagePath: Localfiles.introduction3,
       titleTxt: 'Grand Royal Hotel',
       subTxt: 'Wembley, London',
       dist: 2.0,

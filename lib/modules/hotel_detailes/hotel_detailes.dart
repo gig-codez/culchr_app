@@ -7,6 +7,7 @@ import 'package:new_motel/constants/localfiles.dart';
 import 'package:new_motel/constants/text_styles.dart';
 import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
+import 'package:new_motel/models/Tickets.dart';
 import 'package:new_motel/modules/hotel_detailes/review_data_view.dart';
 import 'package:new_motel/routes/route_names.dart';
 import 'package:new_motel/widgets/common_button.dart';
@@ -35,7 +36,7 @@ class _HotelDetailesState extends State<HotelDetailes>
   late AnimationController animationController;
   var imageHieght = 0.0;
   late AnimationController _animationController;
-
+  bool active = false;
   @override
   void initState() {
     animationController = AnimationController(
@@ -207,10 +208,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                       left: 16, right: 16, bottom: 16, top: 16),
                   child: CommonButton(
                     buttonText: AppLocalizations(context).of("book_now"),
-                    onTap: () {
-                      NavigationServices(context)
-                          .gotoRoomBookingScreen(widget.hotelData.titleTxt);
-                    },
+                    onTap: () => showTickets(),
                   ),
                 ),
 
@@ -259,6 +257,62 @@ class _HotelDetailesState extends State<HotelDetailes>
           )
         ],
       ),
+    );
+  }
+
+  void showTickets() {
+    showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (context) {
+        return BottomSheet(
+          backgroundColor: Colors.transparent,
+          builder: ((context) {
+            return Container(
+              width: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
+              ),
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                  itemCount: EventTickets.ticketsList.length,
+                  itemBuilder: ((context, index) {
+                    return TicketsView(
+                      color: active == false
+                          ? Theme.of(context).backgroundColor
+                          : Color.fromARGB(255, 42, 102, 46),
+                      ticketsList: EventTickets.ticketsList[index],
+                      press: () {
+                        if (EventTickets.ticketsList[index].id == index) {
+                          setState(() {
+                            active = !active;
+                          });
+                        }
+                      },
+                      controller: animationController,
+                      textColor: active
+                          ? Theme.of(context).primaryColor
+                          : Colors.white,
+                    );
+                  }),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 15,
+                  ),
+                ),
+              ),
+            );
+          }),
+          onClosing: () {},
+        );
+      },
     );
   }
 
@@ -418,11 +472,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                       child: CommonButton(
                                           buttonText: AppLocalizations(context)
                                               .of("book_now"),
-                                          onTap: () {
-                                            NavigationServices(context)
-                                                .gotoRoomBookingScreen(
-                                                    widget.hotelData.titleTxt);
-                                          }),
+                                          onTap: () => showTickets()),
                                     ),
                                   ],
                                 ),
@@ -449,19 +499,19 @@ class _HotelDetailesState extends State<HotelDetailes>
                                         .withOpacity(0.2),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(38)),
-                                    onTap: () {
-                                      try {
-                                        scrollController.animateTo(
-                                            MediaQuery.of(context).size.height -
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    5,
-                                            duration:
-                                                Duration(milliseconds: 500),
-                                            curve: Curves.fastOutSlowIn);
-                                      } catch (e) {}
-                                    },
+                                    // onTap: () {
+                                    //   try {
+                                    //     scrollController.animateTo(
+                                    //         MediaQuery.of(context).size.height -
+                                    //             MediaQuery.of(context)
+                                    //                     .size
+                                    //                     .height /
+                                    //                 5,
+                                    //         duration:
+                                    //             Duration(milliseconds: 500),
+                                    //         curve: Curves.fastOutSlowIn);
+                                    //   } catch (e) {}
+                                    // },
                                     child: Padding(
                                       padding: const EdgeInsets.only(
                                           left: 16,
@@ -477,7 +527,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                         children: <Widget>[
                                           Text(
                                             AppLocalizations(context)
-                                                .of("more_details"),
+                                                .of("swipe"),
                                             style: TextStyles(context)
                                                 .getBoldStyle()
                                                 .copyWith(
@@ -488,7 +538,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                                             padding:
                                                 const EdgeInsets.only(top: 2),
                                             child: Icon(
-                                              Icons.keyboard_arrow_down,
+                                              Icons.keyboard_arrow_up_rounded,
                                               color: Colors.white,
                                               size: 24,
                                             ),
@@ -614,32 +664,84 @@ class _HotelDetailesState extends State<HotelDetailes>
             ],
           ),
         ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            Text(
-              "\$${widget.hotelData.perNight}",
-              textAlign: TextAlign.left,
-              style: TextStyles(context).getBoldStyle().copyWith(
-                    fontSize: 22,
-                    color: isInList
-                        ? Theme.of(context).textTheme.bodyText1!.color
-                        : Colors.white,
-                  ),
-            ),
-            Text(
-              AppLocalizations(context).of("per_night"),
-              style: TextStyles(context).getRegularStyle().copyWith(
-                    fontSize: 14,
-                    color: isInList
-                        ? Theme.of(context).disabledColor
-                        : Colors.white,
-                  ),
-            ),
-          ],
-        ),
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   crossAxisAlignment: CrossAxisAlignment.end,
+        //   children: <Widget>[
+        //     Text(
+        //       "\$${widget.hotelData.perNight}",
+        //       textAlign: TextAlign.left,
+        //       style: TextStyles(context).getBoldStyle().copyWith(
+        //             fontSize: 22,
+        //             color: isInList
+        //                 ? Theme.of(context).textTheme.bodyText1!.color
+        //                 : Colors.white,
+        //           ),
+        //     ),
+        //     Text(
+        //       AppLocalizations(context).of("per_night"),
+        //       style: TextStyles(context).getRegularStyle().copyWith(
+        //             fontSize: 14,
+        //             color: isInList
+        //                 ? Theme.of(context).disabledColor
+        //                 : Colors.white,
+        //           ),
+        //     ),
+        //   ],
+        // ),
       ],
+    );
+  }
+}
+
+class TicketsView extends StatelessWidget {
+  final AnimationController controller;
+  final EventTickets ticketsList;
+  final VoidCallback press;
+  final Color color;
+  final Color textColor;
+  TicketsView({
+    required this.controller,
+    required this.color,
+    required this.textColor,
+    required this.press,
+    required this.ticketsList,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      builder: (context, w) {
+        return InkWell(
+            onTap: () {
+              press();
+            },
+            child: Material(
+              color: color,
+              child: GridTile(
+                header: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(28.0),
+                    child: Text(
+                      ticketsList.eventName,
+                      style: TextStyle(color: textColor, fontSize: 16),
+                    ),
+                  ),
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(ticketsList.eventPrice),
+                  ),
+                ),
+                footer: Center(
+                    child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Text(ticketsList.eventDescription),
+                )),
+              ),
+            ));
+      },
+      animation: controller,
     );
   }
 }

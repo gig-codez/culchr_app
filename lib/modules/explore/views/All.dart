@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/models/hotel_list_data.dart';
+import 'package:new_motel/routes/route_names.dart';
 
 import '../popular_list_view.dart';
 import '../title_view.dart';
@@ -14,23 +15,26 @@ class All extends StatelessWidget {
       required this.animationController,
       required this.scrollController})
       : super(key: key);
-  Widget getDealListView() {
-    var hotelList = HotelListData.hotelList;
-    return PopularListView(
-      animationController: animationController,
-      callBack: (index) {},
-      listData: hotelList,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    var sliderImageHieght = MediaQuery.of(context).size.width * 0.3;
+    Widget getDealListView() {
+      var hotelList = HotelListData.hotelList;
+      return PopularListView(
+        animationController: animationController,
+        callBack: (index) {
+          NavigationServices(context).gotoHotelDetailes(hotelList[index]);
+        },
+        listData: hotelList,
+      );
+    }
+
+    var sliderImageHieght = MediaQuery.of(context).size.width * 0.45;
     return Container(
       color: AppTheme.scaffoldBackgroundColor,
       child: ListView.builder(
         controller: scrollController,
-        itemCount: 8,
+        itemCount: 6,
         // padding on top is only for we need spec for sider
         padding: EdgeInsets.only(top: sliderImageHieght + 32, bottom: 16),
         scrollDirection: Axis.vertical,
@@ -46,7 +50,7 @@ class All extends StatelessWidget {
           );
           if (index == 0) {
             return TitleView(
-              titleTxt: AppLocalizations(context).of("upcoming"),
+              titleTxt: AppLocalizations(context).of("trend"),
               subTxt: AppLocalizations(context).of("view_all"),
               animation: animation,
               isLeftButton: true,
