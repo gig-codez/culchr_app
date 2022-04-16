@@ -9,6 +9,12 @@
         "text_id": "trend",
         "en":"Trending Events"
     },{
+        "text_id": "continue",
+        "en":"Continue"
+    },{
+        "text_id": "pay",
+        "en":"Pay"
+    },{
         "text_id": "up",
         "en":"Upcoming Events"
     },

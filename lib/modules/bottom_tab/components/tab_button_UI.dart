@@ -3,17 +3,20 @@ import 'package:new_motel/constants/text_styles.dart';
 import 'package:new_motel/constants/themes.dart';
 
 class TabButtonUI extends StatelessWidget {
-  final IconData icon;
+  IconData? icon;
   final Function()? onTap;
   final bool isSelected;
+  String? image;
   final String text;
-
-  const TabButtonUI(
+  final bool useIcon;
+  TabButtonUI(
       {Key? key,
       this.onTap,
-      required this.icon,
+      this.image,
+      this.icon,
       required this.isSelected,
-      required this.text})
+      required this.text,
+      required this.useIcon})
       : super(key: key);
 
   @override
@@ -32,15 +35,21 @@ class TabButtonUI extends StatelessWidget {
               const SizedBox(
                 height: 4,
               ),
-              Container(
-                width: 40,
-                height: 32,
-                child: Icon(
-                  icon,
-                  size: 26,
-                  color: _color,
-                ),
-              ),
+              useIcon
+                  ? Container(
+                      width: 40,
+                      height: 32,
+                      child: Icon(
+                        icon,
+                        size: 26,
+                        color: _color,
+                      ),
+                    )
+                  : Container(
+                      width: 40,
+                      height: 32,
+                      child: Image.asset(image!),
+                    ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 0),
                 child: FittedBox(

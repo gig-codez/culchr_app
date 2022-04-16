@@ -97,7 +97,8 @@ class _PopularListViewState extends State<PopularListView>
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: AssetImage(
-                                        widget.listData[index].imagePath),
+                                      widget.listData[index].imagePath,
+                                    ),
                                   ),
                                 ),
                                 child: Container(

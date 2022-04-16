@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:ui';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:new_motel/constants/text_styles.dart';
 import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/models/Tickets.dart';
+import 'package:new_motel/models/TopUp.dart';
 import 'package:new_motel/modules/hotel_detailes/review_data_view.dart';
 import 'package:new_motel/routes/route_names.dart';
 import 'package:new_motel/widgets/common_button.dart';
@@ -40,9 +43,9 @@ class _HotelDetailesState extends State<HotelDetailes>
   @override
   void initState() {
     animationController = AnimationController(
-        duration: Duration(milliseconds: 2000), vsync: this);
-    _animationController =
-        AnimationController(duration: Duration(milliseconds: 0), vsync: this);
+        duration: const Duration(milliseconds: 2000), vsync: this);
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 0), vsync: this);
     animationController.forward();
     scrollController.addListener(() {
       if (mounted) {
@@ -89,8 +92,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                   // Hotel title and animation view
                   child: getHotelDetails(isInList: true),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
                   child: Divider(
                     height: 1,
                   ),
@@ -112,8 +115,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(left: 24, right: 24, top: 4, bottom: 8),
+                  padding: const EdgeInsets.only(
+                      left: 24, right: 24, top: 4, bottom: 8),
                   child: RichText(
                     textAlign: TextAlign.justify,
                     text: TextSpan(
@@ -125,7 +128,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               .copyWith(
                                 fontSize: 14,
                               ),
-                          recognizer: new TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()..onTap = () {},
                         ),
                         TextSpan(
                           text: !isReadless
@@ -133,7 +136,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               : AppLocalizations(context).of("less"),
                           style: TextStyles(context).getRegularStyle().copyWith(
                               color: AppTheme.primaryColor, fontSize: 14),
-                          recognizer: new TapGestureRecognizer()
+                          recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               setState(() {
                                 isReadless = !isReadless;
@@ -173,7 +176,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                     callback: () {},
                   ),
 
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 Stack(
@@ -233,13 +236,13 @@ class _HotelDetailesState extends State<HotelDetailes>
                       Icons.arrow_back, AppTheme.backgroundColor, () {
                     if (scrollController.offset != 0.0) {
                       scrollController.animateTo(0.0,
-                          duration: Duration(milliseconds: 480),
+                          duration: const Duration(milliseconds: 480),
                           curve: Curves.easeInOutQuad);
                     } else {
                       Navigator.pop(context);
                     }
                   }),
-                  Expanded(
+                  const Expanded(
                     child: SizedBox(),
                   ),
                   // like and unlike view
@@ -270,7 +273,7 @@ class _HotelDetailesState extends State<HotelDetailes>
           builder: ((context) {
             return Container(
               width: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16),
@@ -280,32 +283,92 @@ class _HotelDetailesState extends State<HotelDetailes>
               height: MediaQuery.of(context).size.height * 0.5,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                  itemCount: EventTickets.ticketsList.length,
-                  itemBuilder: ((context, index) {
-                    return TicketsView(
-                      color: active == false
-                          ? Theme.of(context).backgroundColor
-                          : Color.fromARGB(255, 42, 102, 46),
-                      ticketsList: EventTickets.ticketsList[index],
-                      press: () {
-                        if (EventTickets.ticketsList[index].id == index) {
-                          setState(() {
-                            active = !active;
-                          });
-                        }
-                      },
-                      controller: animationController,
-                      textColor: active
-                          ? Theme.of(context).primaryColor
-                          : Colors.white,
-                    );
-                  }),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15,
-                  ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Center(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: 100,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: const Divider(
+                                    indent: 5,
+                                    thickness: 7,
+                                    color: Colors.black,
+                                    height: 5,
+                                    endIndent: 5,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                "Tickets",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      subtitle: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Choose your ticket",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: ListView.separated(
+                          itemCount: EventTickets.ticketsList.length,
+                          itemBuilder: ((context, index) {
+                            return TicketsView(
+                              color: active == false
+                                  ? Theme.of(context).backgroundColor
+                                  : const Color.fromARGB(255, 42, 102, 46),
+                              ticketsList: EventTickets.ticketsList[index],
+                              press: () {
+                                if (EventTickets.ticketsList[index].id ==
+                                    index) {
+                                  setState(() {
+                                    active = !active;
+                                  });
+                                }
+                                print(EventTickets.ticketsList[index].id);
+                              },
+                              controller: animationController,
+                              // textColor: Colors.black,
+                            );
+                          }),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.02,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CommonButton(
+                        buttonText: "Pay",
+                        onTap: () {
+                          Navigator.pop(context);
+                          culchrwallet();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );
@@ -316,12 +379,258 @@ class _HotelDetailesState extends State<HotelDetailes>
     );
   }
 
+  void culchrwallet() {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return BottomSheet(
+            backgroundColor: Colors.transparent,
+            builder: (context) {
+              return Container(
+                width: MediaQuery.of(context).size.height,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16),
+                  ),
+                ),
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 100,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: const Divider(
+                              indent: 5,
+                              thickness: 7,
+                              color: Colors.black,
+                              height: 5,
+                              endIndent: 5,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "Culchr Wallet",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.5,
+                          child: ListView(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(18.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color:
+                                      const Color.fromARGB(255, 197, 194, 194),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: const [
+                                    Text(
+                                      "Balance",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    Text(
+                                      "UGx 60,000",
+                                      textScaleFactor: 1.7,
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const ListTile(
+                                leading: Text(
+                                  "Price (1xUGX 20,000 each)",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                trailing: Text(
+                                  "UGX 20,000",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                              const ListTile(
+                                  leading: Text(
+                                    "Service Charge",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  trailing: Text(
+                                    "UGX 2100",
+                                    style: TextStyle(color: Colors.black),
+                                  )),
+                              const ListTile(
+                                subtitle: Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "UGX 22,100.00",
+                                      textScaleFactor: 1.4,
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: CommonButton(
+                          buttonText: "Confirm",
+                          onTap: () {
+                            Navigator.pop(context);
+                            culchrTopUp();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+            onClosing: () {},
+          );
+        });
+  }
+
+  void culchrTopUp() {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (context) {
+          return BottomSheet(
+              backgroundColor: Colors.transparent,
+              onClosing: () {},
+              builder: (context) {
+                return AnimatedBuilder(
+                  builder: (context, w) {
+                    return Container(
+                      width: MediaQuery.of(context).size.height,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                        ),
+                      ),
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: 100,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: const Divider(
+                                    indent: 5,
+                                    thickness: 7,
+                                    color: Colors.black,
+                                    height: 5,
+                                    endIndent: 5,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  "TopUp",
+                                  textScaleFactor: 1.6,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ),
+                            const ListTile(
+                              subtitle: Text("Choose Your TopUp Method",
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(color: Colors.black)),
+                            ),
+                            Expanded(
+                              child: SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                                child: ListView(
+                                  children: List.generate(
+                                    TopUp.topups.length,
+                                    (index) => Padding(
+                                      padding: const EdgeInsets.all(9.0),
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          side: const BorderSide(
+                                              color: Colors.black45, width: 1),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: ListTile(
+                                          title: Text(TopUp.topups[index].name),
+                                          trailing: const Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                          ),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                            culchrwallet();
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CommonButton(
+                                buttonText: "Continue",
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                  animation: animationController,
+                );
+              });
+        });
+  }
+
   Widget _getAppBarUi(
       Color color, IconData icon, Color iconcolor, VoidCallback onTap) {
     return SizedBox(
       height: AppBar().preferredSize.height,
       child: Padding(
-        padding: EdgeInsets.only(top: 8, left: 8, right: 8),
+        padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
         child: Container(
           width: AppBar().preferredSize.height - 8,
           height: AppBar().preferredSize.height - 8,
@@ -329,7 +638,7 @@ class _HotelDetailesState extends State<HotelDetailes>
           child: Material(
             color: Colors.transparent,
             child: InkWell(
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(32.0),
               ),
               onTap: onTap,
@@ -362,7 +671,7 @@ class _HotelDetailesState extends State<HotelDetailes>
           Material(
             color: Colors.transparent,
             child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(4.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
               onTap: onTap,
               child: Padding(
                 padding: const EdgeInsets.only(left: 8),
@@ -444,18 +753,19 @@ class _HotelDetailesState extends State<HotelDetailes>
                     child: Column(
                       children: <Widget>[
                         Container(
-                          padding: EdgeInsets.only(left: 24, right: 24),
+                          padding: const EdgeInsets.only(left: 24, right: 24),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(24)),
-                            child: new BackdropFilter(
-                              filter: new ImageFilter.blur(
-                                  sigmaX: 10.0, sigmaY: 10.0),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(24)),
+                            child: BackdropFilter(
+                              filter:
+                                  ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                               child: Container(
                                 color: Colors.black12,
                                 padding: const EdgeInsets.all(4.0),
                                 child: Column(
                                   children: <Widget>[
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 4,
                                     ),
                                     Padding(
@@ -480,15 +790,16 @@ class _HotelDetailesState extends State<HotelDetailes>
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
                         Center(
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(24)),
-                            child: new BackdropFilter(
-                              filter: new ImageFilter.blur(
-                                  sigmaX: 10.0, sigmaY: 10.0),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(24)),
+                            child: BackdropFilter(
+                              filter:
+                                  ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
                               child: Container(
                                 color: Colors.black12,
                                 child: Material(
@@ -497,8 +808,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                                     splashColor: Theme.of(context)
                                         .primaryColor
                                         .withOpacity(0.2),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(38)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(38)),
                                     // onTap: () {
                                     //   try {
                                     //     scrollController.animateTo(
@@ -534,9 +845,8 @@ class _HotelDetailesState extends State<HotelDetailes>
                                                   color: Colors.white,
                                                 ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 2),
+                                          const Padding(
+                                            padding: EdgeInsets.only(top: 2),
                                             child: Icon(
                                               Icons.keyboard_arrow_up_rounded,
                                               color: Colors.white,
@@ -595,7 +905,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                               : Colors.white,
                         ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 4,
                   ),
                   Icon(
@@ -604,7 +914,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                     color: Theme.of(context).primaryColor,
                   ),
                   Text(
-                    "${widget.hotelData.dist.toStringAsFixed(1)}",
+                    widget.hotelData.dist.toStringAsFixed(1),
                     overflow: TextOverflow.ellipsis,
                     style: TextStyles(context).getRegularStyle().copyWith(
                           fontSize: 14,
@@ -630,7 +940,7 @@ class _HotelDetailesState extends State<HotelDetailes>
                 ],
               ),
               isInList
-                  ? SizedBox()
+                  ? const SizedBox()
                   : Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Row(
@@ -699,11 +1009,10 @@ class TicketsView extends StatelessWidget {
   final EventTickets ticketsList;
   final VoidCallback press;
   final Color color;
-  final Color textColor;
-  TicketsView({
+
+  const TicketsView({
     required this.controller,
     required this.color,
-    required this.textColor,
     required this.press,
     required this.ticketsList,
   });
@@ -711,37 +1020,46 @@ class TicketsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       builder: (context, w) {
-        return InkWell(
-            onTap: () {
-              press();
-            },
-            child: Material(
-              borderOnForeground: true,
-              borderRadius: BorderRadius.circular(8),
-              color: color,
-              child: GridTile(
-                header: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(28.0),
-                    child: Text(
-                      ticketsList.eventName,
-                      style: TextStyle(color: textColor, fontSize: 16),
-                    ),
-                  ),
-                ),
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(ticketsList.eventPrice),
-                  ),
-                ),
-                footer: Center(
-                    child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Text(ticketsList.eventDescription),
-                )),
+        return Card(
+          color: color,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: Theme.of(context).dividerColor,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: ListTile(
+            onTap: () => press(),
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                ticketsList.eventName,
+                style: const TextStyle(fontSize: 16),
               ),
-            ));
+            ),
+            title: Text(
+              ticketsList.eventPrice,
+              style: const TextStyle(fontSize: 16),
+            ),
+            trailing: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    color: Theme.of(context).dividerColor,
+                    width: 1,
+                  ),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: color,
+                  child: const Icon(Icons.keyboard_arrow_down_rounded),
+                ),
+              ),
+            ),
+          ),
+        );
       },
       animation: controller,
     );

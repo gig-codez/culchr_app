@@ -127,8 +127,10 @@ class _BottomTabScreenState extends State<BottomTabScreen>
                 onTap: () {
                   tabClick(BottomBarType.Explore);
                 },
+                useIcon: true,
               ),
               TabButtonUI(
+                useIcon: true,
                 icon: Icons.search_rounded,
                 isSelected: tabType == BottomBarType.SearchSearch,
                 text: "Search",
@@ -137,7 +139,8 @@ class _BottomTabScreenState extends State<BottomTabScreen>
                 },
               ),
               TabButtonUI(
-                icon: Icons.airplane_ticket_rounded,
+                useIcon: false,
+                image: "assets/images/tickets.png",
                 isSelected: tabType == BottomBarType.Tickets,
                 text: "Tickets",
                 onTap: () {
@@ -145,6 +148,7 @@ class _BottomTabScreenState extends State<BottomTabScreen>
                 },
               ),
               TabButtonUI(
+                useIcon: true,
                 icon: FontAwesomeIcons.user,
                 isSelected: tabType == BottomBarType.Profile,
                 text: AppLocalizations(context).of("profile"),

@@ -12,11 +12,6 @@ class EventTickets {
 
   static List<EventTickets> ticketsList = [
     EventTickets(
-        eventName: "Early Bird",
-        eventDescription: "longpress",
-        eventPrice: "UGx 20,000",
-        id: 0),
-    EventTickets(
         id: 1,
         eventName: "Standard",
         eventDescription: "Longpress",
@@ -28,7 +23,7 @@ class EventTickets {
         eventPrice: "UGx 200,000"),
     EventTickets(
         id: 3,
-        eventName: "VIP",
+        eventName: "VVIP 21+",
         eventDescription: "Longpress",
         eventPrice: "UGx 100,000"),
   ];
