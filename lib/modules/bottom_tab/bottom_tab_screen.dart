@@ -139,7 +139,8 @@ class _BottomTabScreenState extends State<BottomTabScreen>
                 },
               ),
               TabButtonUI(
-                useIcon: false,
+                useIcon: true,
+                icon: Icons.airplane_ticket,
                 image: "assets/images/tickets.png",
                 isSelected: tabType == BottomBarType.Tickets,
                 text: "Tickets",

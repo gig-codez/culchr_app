@@ -81,11 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     _forgotYourPasswordUI(),
                     CommonButton(
-                      padding: EdgeInsets.only(left: 24, right: 24, bottom: 16),
+                      padding: const EdgeInsets.only(
+                          left: 24, right: 24, bottom: 16),
                       buttonText: AppLocalizations(context).of("login"),
                       onTap: () {
-                        if (_allValidation())
+                        if (_allValidation()) {
+                          Navigator.pop(context);
                           NavigationServices(context).gotoTabScreen();
+                        }
                       },
                     ),
                   ],
@@ -106,8 +109,9 @@ class _LoginScreenState extends State<LoginScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           InkWell(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
             onTap: () {
+              Navigator.pop(context);
               NavigationServices(context).gotoForgotPassword();
             },
             child: Padding(

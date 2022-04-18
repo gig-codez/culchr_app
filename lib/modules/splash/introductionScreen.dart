@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:new_motel/constants/localfiles.dart';
 import 'package:new_motel/constants/themes.dart';
 import 'package:new_motel/language/appLocalizations.dart';
 import 'package:new_motel/modules/splash/components/page_pop_view.dart';
-import 'package:new_motel/routes/route_names.dart';
 import 'package:new_motel/widgets/common_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../login/login_screen.dart';
+import '../login/sign_up_Screen.dart';
 
 class IntroductionScreen extends StatefulWidget {
   const IntroductionScreen({Key? key}) : super(key: key);
@@ -15,8 +18,10 @@ class IntroductionScreen extends StatefulWidget {
   _IntroductionScreenState createState() => _IntroductionScreenState();
 }
 
-class _IntroductionScreenState extends State<IntroductionScreen> {
+class _IntroductionScreenState extends State<IntroductionScreen>
+    with SingleTickerProviderStateMixin {
   var pageController = PageController(initialPage: 0);
+  late AnimationController bottomAnimationController;
   List<PageViewData> pageViewModelData = [];
 
   late Timer sliderTimer;
@@ -24,6 +29,11 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
 
   @override
   void initState() {
+    bottomAnimationController = AnimationController(
+      // value: 50,
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
     pageViewModelData.add(PageViewData(
       titleText: 'Exclusive access to every event',
       subText:
@@ -51,23 +61,25 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
       assetsImage: Localfiles.introduction3,
     ));
 
-    sliderTimer = Timer.periodic(Duration(seconds: 4), (timer) {
+    sliderTimer = Timer.periodic(const Duration(seconds: 8), (timer) {
       if (currentShowIndex == 0) {
         pageController.animateTo(MediaQuery.of(context).size.width,
-            duration: const Duration(seconds: 3), curve: Curves.decelerate);
-      } else if (currentShowIndex == 2) {
+            duration: const Duration(seconds: 5), curve: Curves.decelerate);
+      } else if (currentShowIndex == 1) {
         pageController.animateTo(MediaQuery.of(context).size.width * 2,
-            duration: const Duration(seconds: 3), curve: Curves.decelerate);
+            duration: const Duration(seconds: 5), curve: Curves.decelerate);
       } else if (currentShowIndex == 2) {
         pageController.animateTo(MediaQuery.of(context).size.width * 3,
-            duration: const Duration(seconds: 3), curve: Curves.decelerate);
+            duration: const Duration(seconds: 5), curve: Curves.decelerate);
       } else if (currentShowIndex == 3) {
         pageController.animateTo(0,
-            duration: const Duration(seconds: 3), curve: Curves.decelerate);
+            duration: const Duration(seconds: 5), curve: Curves.decelerate);
       }
     });
     super.initState();
   }
+
+  double height = 250;
 
   @override
   void dispose() {
@@ -83,7 +95,9 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
           controller: pageController,
           pageSnapping: true,
           onPageChanged: (index) {
-            currentShowIndex = index;
+            setState(() {
+              currentShowIndex = index;
+            });
           },
           scrollDirection: Axis.horizontal,
           children: <Widget>[
@@ -109,15 +123,17 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                     dotHeight: 10.0,
                     dotWidth: 10.0,
                     spacing: 5.0), // your preferred effect
-                onDotClicked: (index) {},
+                onDotClicked: (index) {
+                  setState(() {
+                    currentShowIndex = index;
+                  });
+                },
               ),
               CommonButton(
                 padding: const EdgeInsets.only(
                     left: 48, right: 48, bottom: 8, top: 32),
                 buttonText: AppLocalizations(context).of("login"),
-                onTap: () {
-                  NavigationServices(context).gotoLoginScreen();
-                },
+                onTap: () => showLoginUi(),
               ),
               CommonButton(
                 padding: const EdgeInsets.only(
@@ -125,14 +141,52 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
                 buttonText: AppLocalizations(context).of("create_account"),
                 backgroundColor: AppTheme.backgroundColor,
                 textColor: AppTheme.primaryTextColor,
-                onTap: () {
-                  NavigationServices(context).gotoSignScreen();
-                },
+                onTap: () => showSignUi(),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void showLoginUi() {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            height: MediaQuery.of(context).size.height / 1.2,
+            child: const Padding(
+              padding: EdgeInsets.only(left: 5.0, right: 5.0),
+              child: ClipRRect(
+                child: LoginScreen(),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  showSignUi() {
+    showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return SizedBox(
+            height: MediaQuery.of(context).size.height / 1.2,
+            child: const Padding(
+              padding: EdgeInsets.only(left: 5.0, right: 5.0),
+              child: ClipRRect(
+                child: SignUpScreen(),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+            ),
+          );
+        });
   }
 }
