@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class Localfiles {
   static const String BaseImageUrl = 'assets/images/';
 
@@ -41,6 +43,7 @@ class Localfiles {
   static const String introduction1 = BaseImageUrl + 'culchrpass.jpg';
   static const String introduction2 = BaseImageUrl + 'culchrwallet.jpg';
   static const String introduction3 = BaseImageUrl + 'experience.jpg';
+  static const String introduction4 = BaseImageUrl + 'nightlife.jpg';
   static const String inviteImage = BaseImageUrl + 'inviteImage.png';
   static const String mapImage = BaseImageUrl + 'mapImage.png';
   static const String userImage = BaseImageUrl + 'userImage.png';

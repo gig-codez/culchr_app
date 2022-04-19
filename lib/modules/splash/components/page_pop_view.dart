@@ -24,7 +24,7 @@ class PagePopup extends StatelessWidget {
             end: Alignment.topCenter,
             colors: [
               Colors.black.withOpacity(1.0),
-              Colors.black.withOpacity(0.5),
+              Colors.black.withOpacity(0.7),
               Colors.black.withOpacity(0.0),
             ],
           ),
@@ -32,37 +32,44 @@ class PagePopup extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 2.4,
+              height: MediaQuery.of(context).size.height / 2.2,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                imageData.titleText,
-                textScaleFactor: 2.1,
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 50, right: 50),
+                child: Text(
+                  imageData.titleText,
+                  textScaleFactor: 1.4,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                imageData.subText,
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w300,
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 50.0, right: 50.0, top: 10, bottom: 4),
+                child: Text(
+                  imageData.subText,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ),
-            const Expanded(
-              flex: 1,
-              child: SizedBox(),
-            ),
+            // const Expanded(
+            //   flex: 1,
+            //   child: SizedBox(),
+            // ),
           ],
         ),
       ),

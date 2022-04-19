@@ -45,22 +45,28 @@ class _IntroductionScreenState extends State<IntroductionScreen>
       titleText: 'Discover experieces around you.',
       subText:
           'Discover and travel to all the exihilarating experiences around you. ',
-      assetsImage: Localfiles.introduction1,
+      assetsImage: Localfiles.introduction3,
     ));
 
     pageViewModelData.add(PageViewData(
       titleText: 'The party doesn’t stop with Nightlife',
       subText:
           'Stay in the loop with insights of every nightlife activity near and around you',
-      assetsImage: Localfiles.introduction2,
+      assetsImage: Localfiles.introduction4,
     ));
 
     pageViewModelData.add(PageViewData(
       titleText: 'Seamless Entry With CulchrPass',
       subText: 'Using our reusable wristband, get access to every event ',
-      assetsImage: Localfiles.introduction3,
+      assetsImage: Localfiles.introduction1,
     ));
 
+    pageViewModelData.add(PageViewData(
+      titleText: 'Cashless pay with our CulchrWallet',
+      subText:
+          'Updated catalog of concerts, live perfomances taking place in your locality.',
+      assetsImage: Localfiles.introduction2,
+    ));
     sliderTimer = Timer.periodic(const Duration(seconds: 8), (timer) {
       if (currentShowIndex == 0) {
         pageController.animateTo(MediaQuery.of(context).size.width,
@@ -72,6 +78,9 @@ class _IntroductionScreenState extends State<IntroductionScreen>
         pageController.animateTo(MediaQuery.of(context).size.width * 3,
             duration: const Duration(seconds: 5), curve: Curves.decelerate);
       } else if (currentShowIndex == 3) {
+        pageController.animateTo(MediaQuery.of(context).size.width * 4,
+            duration: const Duration(seconds: 5), curve: Curves.decelerate);
+      } else if (currentShowIndex == 4) {
         pageController.animateTo(0,
             duration: const Duration(seconds: 5), curve: Curves.decelerate);
       }
@@ -92,21 +101,18 @@ class _IntroductionScreenState extends State<IntroductionScreen>
     return Scaffold(
       body: SafeArea(
         child: PageView(
-          controller: pageController,
-          pageSnapping: true,
-          onPageChanged: (index) {
-            setState(() {
-              currentShowIndex = index;
-            });
-          },
-          scrollDirection: Axis.horizontal,
-          children: <Widget>[
-            PagePopup(imageData: pageViewModelData[0]),
-            PagePopup(imageData: pageViewModelData[1]),
-            PagePopup(imageData: pageViewModelData[2]),
-            PagePopup(imageData: pageViewModelData[3]),
-          ],
-        ),
+            controller: pageController,
+            pageSnapping: true,
+            onPageChanged: (index) {
+              setState(() {
+                currentShowIndex = index;
+              });
+            },
+            scrollDirection: Axis.horizontal,
+            children: List.generate(
+              pageViewModelData.length,
+              (index) => PagePopup(imageData: pageViewModelData[index]),
+            )),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: SizedBox(
